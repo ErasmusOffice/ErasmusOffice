@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'Montserrat2';
+    src: url('../Fonts/Montserrat-Bold.ttf');
+}
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 2 0 ;
+    -fx-background-radius: 0 ;
+}
+.text-field:focused {
+    -fx-background-color: #1b998b, #f8f8f8 ;
+}
+
+.text-field{
+    -fx-font-family: "Montserrat Medium";
+    -fx-text-fill: #535353;
+    -fx-font-size: 20px;
+    -fx-background-color: #1b998b, white;
+}
+
+.label{
+    -fx-font-family: Montserrat2;
+}
+.root{
+    -fx-background-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #1a1a1a;
+}
+
+.real-button{
+    -fx-background-color: #1b998b;
+    /*-fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-color: #000000;*/
+    -fx-text-fill: #000000;
+    -fx-rotate: -2deg;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+
+}
+
+.not-button{
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-rotate: -2deg;
+
+}
+
+.real-button:hover{
+    -fx-background-color: #1fb5a4;
+}
+
+.real-button:pressed{
+    -fx-translate-x: 4;
+    -fx-translate-y: -5;
+}
+/*.button{
+    -fx-background-color: white;
+    -fx-border-color: green;
+    -fx-border-width: 2px;
+
+}
+
+.button:hover{
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 10, 0.0 , 0 , 0 );
+}
+
+.button:pressed{
+    -fx-background-color: #e5e5e5;
+}
+*/
