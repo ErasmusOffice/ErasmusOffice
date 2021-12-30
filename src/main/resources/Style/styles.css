@@ -31,9 +31,6 @@
 
 .real-button{
     -fx-background-color: #1b998b;
-    /*-fx-border-width: 1;
-    -fx-border-style: solid;
-    -fx-border-color: #000000;*/
     -fx-text-fill: #000000;
     -fx-rotate: -2deg;
     -fx-text-fill: white;
@@ -59,18 +56,3 @@
     -fx-translate-x: 4;
     -fx-translate-y: -5;
 }
-/*.button{
-    -fx-background-color: white;
-    -fx-border-color: green;
-    -fx-border-width: 2px;
-
-}
-
-.button:hover{
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 10, 0.0 , 0 , 0 );
-}
-
-.button:pressed{
-    -fx-background-color: #e5e5e5;
-}
-*/
