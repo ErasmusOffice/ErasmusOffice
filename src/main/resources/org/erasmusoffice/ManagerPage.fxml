@@ -18,34 +18,34 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erasmusoffice.ManagerPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1060.0" stylesheets="@../../Style/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erasmusoffice.ManagerPageController">
    <children>
-      <Pane layoutY="14.0" prefHeight="98.0" prefWidth="1125.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutY="14.0" prefHeight="98.0" prefWidth="1060.0" styleClass="top-pane-image" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="73.0" layoutY="17.0" prefHeight="66.0" prefWidth="518.0" text="Yildiz Technical University">
+            <Label layoutX="73.0" layoutY="17.0" prefHeight="66.0" prefWidth="557.0" styleClass="top-label" text="Yildiz Technical University">
                <font>
                   <Font size="45.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="1088.0" layoutY="-1.0" prefHeight="39.0" prefWidth="37.0" text="X">
+            <Label alignment="CENTER" layoutX="1023.0" layoutY="-2.0" prefHeight="39.0" prefWidth="37.0" text="X" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="606.0" layoutY="17.0" text="-">
+            <Label layoutX="638.0" layoutY="17.0" styleClass="top-label" text="-">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
             </Label>
-            <Label layoutX="642.0" layoutY="16.0" prefHeight="66.0" prefWidth="327.0" text="Manager Name">
+            <Label layoutX="668.0" layoutY="16.0" prefHeight="66.0" prefWidth="327.0" styleClass="top-label" text="Manager Name">
                <font>
                   <Font size="45.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TabPane layoutY="93.0" prefHeight="656.0" prefWidth="1125.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" AnchorPane.topAnchor="93.0">
+      <TabPane layoutY="93.0" prefHeight="656.0" prefWidth="1060.0" styleClass="tab-panel" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="93.0">
         <tabs>
           <Tab text="Add an Application">
             <content>
@@ -65,17 +65,17 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Student ID:" />
-                              <Label text="First Name:" GridPane.rowIndex="1" />
-                              <Label text="Last Name:" GridPane.rowIndex="2" />
+                              <Label styleClass="attribute" text="Student ID:" />
+                              <Label styleClass="attribute" text="First Name:" GridPane.rowIndex="1" />
+                              <Label styleClass="attribute" text="Last Name:" GridPane.rowIndex="2" />
                               <TextField editable="false" GridPane.columnIndex="1" />
                               <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField editable="false" prefWidth="386.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="GPA:" GridPane.rowIndex="3" />
-                              <Label text="University:" GridPane.rowIndex="5" />
+                              <Label styleClass="attribute" text="GPA:" GridPane.rowIndex="3" />
+                              <Label styleClass="attribute" text="University:" GridPane.rowIndex="5" />
                               <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <ComboBox prefHeight="25.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Label text="Term" GridPane.rowIndex="4" />
+                              <Label styleClass="attribute" text="Term" GridPane.rowIndex="4" />
                               <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
                                     <CheckBox layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Fall" />
@@ -83,8 +83,12 @@
                                  </children></Pane>
                            </children>
                         </GridPane>
-                        <Button layoutX="497.0" layoutY="515.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="not-button" />
-                        <Button layoutX="497.0" layoutY="515.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="real-button" text="Apply" />
+                        <Pane layoutX="488.0" layoutY="515.0">
+                           <children>
+                              <Button layoutX="9.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="stylized-button-frame" />
+                              <Button layoutY="7.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Apply" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
             </content>
@@ -93,7 +97,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1095.0">
+                        <TableView layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1038.0">
                           <columns>
                             <TableColumn prefWidth="151.0" text="App. ID" />
                             <TableColumn prefWidth="193.0" text="Date" />
@@ -104,8 +108,12 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Button layoutX="978.0" layoutY="464.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="not-button" />
-                        <Button layoutX="978.0" layoutY="464.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="real-button" text="Update" />
+                        <Pane layoutX="906.0" layoutY="464.0">
+                           <children>
+                              <Button layoutX="9.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="stylized-button-frame" />
+                              <Button layoutY="7.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Update" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
             </content>
@@ -125,6 +133,12 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <Pane layoutX="906.0" layoutY="469.0">
+                           <children>
+                              <Button layoutX="9.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="stylized-button-frame" />
+                              <Button layoutY="7.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Place" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
                </content>
@@ -133,11 +147,14 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="14.0" layoutY="37.0" prefHeight="241.0" prefWidth="1095.0" />
-                        <TableView layoutX="14.0" layoutY="309.0" prefHeight="303.0" prefWidth="1093.0" />
-                        <Button layoutX="1074.0" layoutY="6.0" mnemonicParsing="false" text="&gt;&gt;" />
-                        <Label layoutX="14.0" layoutY="10.0" text="Query:" />
-                        <Label layoutX="14.0" layoutY="286.0" text="Output:" />
+                        <TextArea layoutX="14.0" layoutY="37.0" prefHeight="241.0" prefWidth="1034.0" />
+                        <TableView layoutX="14.0" layoutY="309.0" prefHeight="293.0" prefWidth="1035.0" />
+                        <Button layoutX="1013.0" layoutY="6.0" mnemonicParsing="false" text="&gt;&gt;">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Label layoutX="16.0" layoutY="1.0" styleClass="attribute" text="Query:" />
+                        <Label layoutX="14.0" layoutY="275.0" styleClass="attribute" text="Output:" />
                      </children>
                   </AnchorPane>
               </content>
