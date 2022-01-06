@@ -201,7 +201,7 @@
     -fx-background-color: white;
 }
 .check-box:selected .box {
-    -fx-background-color: -fx-darkest-grey-color;
+    -fx-background-color: #bca42e;
 }
 
 .combo-box{
@@ -238,4 +238,8 @@
     -fx-font-weight: bold;
     -fx-stroke: black;
     -fx-stroke-width: 2px;
+}
+
+.front-pane{
+    -fx-background-color: rgba(0, 0, 0, 0.5);
 }

@@ -25,6 +25,18 @@
             <artifactId>postgresql</artifactId>
             <version>42.3.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.fxmisc.richtext</groupId>
+            <artifactId>richtextfx</artifactId>
+            <version>0.10.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>12</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
