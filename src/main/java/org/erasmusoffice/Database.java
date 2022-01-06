@@ -16,7 +16,7 @@ public class Database {
     private static final String dbPassword = "0000";
 
     public static void main(String[] args) {
-//        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
+        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
         testDb();
 
         System.out.println("-Database.java main terminated succesfully-");
