@@ -38,7 +38,7 @@ public class LoginController {
     }
 
     @FXML
-    private void closeSCreen(Event event){
+    private void closeScreen(Event event){
         Stage loginStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         loginStage.close();
     }
