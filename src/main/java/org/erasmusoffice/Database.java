@@ -2,9 +2,6 @@ package org.erasmusoffice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -16,38 +13,12 @@ public class Database {
     private static final String dbPassword = "0000";
 
     public static void main(String[] args) {
-        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
+//        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
+//        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
         testDb();
 
         System.out.println("-Database.java main terminated succesfully-");
     }
-
-    /**
-     * Generates a hex SHA-256 hash string from the given password
-     */
-    public static String getPasswordHash(String password) {
-        MessageDigest digest;
-        byte[] encodedhash;
-        StringBuilder hexString;
-
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-        encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        hexString = new StringBuilder(2 * encodedhash.length);
-        for (int i = 0; i < encodedhash.length; i++) {
-            String hex = Integer.toHexString(0xff & encodedhash[i]);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return new String(hexString);
-    }
-
 
     /**
      * Reads sql query lines from a file and builds a sql string containing them.

@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS universities (
     spring_applicant_count integer CHECK (spring_applicant_count >= 0)
 );
 
-
 CREATE TABLE IF NOT EXISTS foreign_students (
     foreign_std_id integer PRIMARY KEY,
     department varchar(50),
@@ -56,7 +55,7 @@ CREATE TABLE IF NOT EXISTS foreign_students (
 CREATE TABLE IF NOT EXISTS login_infos (
     username varchar(64) PRIMARY KEY,
     password varchar(100) NOT NULL,
-    role varchar(50) NOT NULL CHECK (ROLE IN ('student', 'manager'))
+    role varchar(50) NOT NULL CHECK (ROLE IN ('student', 'manager', 'it_staff'))
 );
 
 ALTER TABLE universities
@@ -77,11 +76,16 @@ ALTER TABLE foreign_students
 ALTER TABLE foreign_students
     ADD FOREIGN KEY (src_uni_id) REFERENCES universities (uni_id) ON DELETE SET NULL ON UPDATE CASCADE;
 
-
 --Table Comments
 COMMENT ON TABLE students IS 'Local Erasmus students';
+
 COMMENT ON TABLE applications IS 'Application records of all students to universities';
+
 COMMENT ON TABLE consultants IS 'Consultants of Erasmus students';
+
 COMMENT ON TABLE universities IS 'Universities that currently accept student exchange';
+
 COMMENT ON TABLE foreign_students IS 'Foreign Erasmus students';
+
 COMMENT ON TABLE login_infos IS 'Username and password infos to be used in the login page';
+
