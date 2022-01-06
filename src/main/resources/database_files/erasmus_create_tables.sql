@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS foreign_students (
 CREATE TABLE IF NOT EXISTS login_infos (
     username varchar(64) PRIMARY KEY,
     hashed_password varchar(100) NOT NULL,
-    role varchar(50) NOT NULL CHECK (ROLE IN ('student', 'manager'))
+    role varchar(50) NOT NULL CHECK (ROLE IN ('student', 'manager', 'it_staff'))
 );
 
 ALTER TABLE universities
