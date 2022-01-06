@@ -2,10 +2,10 @@ package org.erasmusoffice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Database {
@@ -16,11 +16,38 @@ public class Database {
     private static final String dbPassword = "0000";
 
     public static void main(String[] args) {
-        //createTables();
+//        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
         testDb();
 
         System.out.println("-Database.java main terminated succesfully-");
     }
+
+    /**
+     * Generates a hex SHA-256 hash string from the given password
+     */
+    public static String getPasswordHash(String password) {
+        MessageDigest digest;
+        byte[] encodedhash;
+        StringBuilder hexString;
+
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+        encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        hexString = new StringBuilder(2 * encodedhash.length);
+        for (int i = 0; i < encodedhash.length; i++) {
+            String hex = Integer.toHexString(0xff & encodedhash[i]);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return new String(hexString);
+    }
+
 
     /**
      * Reads sql query lines from a file and builds a sql string containing them.
@@ -62,13 +89,14 @@ public class Database {
     }
 
     /**
+     * Runs DDL queries from a file.
      * Creates all of the needed database tables for the application.
      * No operation if the tables already exist.
      */
-    public static void createTables() {
+    public static void importSqlQuery(String queryPath) {
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
              Statement stmt = conn.createStatement()) {
-            String sql = getSqlQuery("src/databases/createTables.sql");
+            String sql = getSqlQuery(queryPath);
 
             for (String s : sql.split(";")) {
                 if (!s.equals("\n")) {
@@ -81,15 +109,27 @@ public class Database {
         }
     }
 
+    /**
+     * Establishes connection with the database and tries to get metadata about tables.
+     * This method can be used to test database connection.
+     */
     public static void testDb() {
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT * FROM students";
+            DatabaseMetaData dbMetaData = conn.getMetaData();
+            ResultSet rs = dbMetaData.getTables(null, null, null, new String[]{"TABLE"});
 
+            System.out.println("Available tables:");
+            while(rs.next()) {
+                String tableName = rs.getString("TABLE_NAME");
+                String remarks = rs.getString("REMARKS");
 
-            stmt.execute(sql);
+                System.out.println("TABLE_NAME: " + tableName + " REMARKS: " + remarks);
+            }
+            System.out.println("-Database connection established-");
+
         } catch (SQLException e) {
-            System.out.println("error: Could not create the tables.");
+            System.out.println("error: Could not run the query.");
             e.printStackTrace();
         }
     }
