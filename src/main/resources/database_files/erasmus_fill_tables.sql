@@ -31,16 +31,16 @@ values
 /* INSERTING UNIVERSITIES */
 insert into universities (uni_id, country, name, capacity, fall_applicant_count, spring_applicant_count)
 values
-(1, 'Portugal', 'Universidade de Coimbra', 40, 10, 25),
-(2, 'United Kingdom', 'University of Kent', 20, 15, 25),
-(3, 'Spain', 'Universidad de Salamanca', 20, 10, 20),
-(4, 'Czech Republic', 'Masarykova univerzita', 30, 20, 25),
-(5, 'Switzerland', 'Universitat Basel', 20, 15, 20),
-(6, 'Germany', 'Universitat Stuttgart', 30, 20, 20),
-(7, 'Russia', 'Kazan Federal University', 30, 20, 15),
-(8, 'Italy', 'Universita degli Studi di Genova', 40, 20, 25),
-(9, 'France', 'Universite Paris-Saclay', 40, 10, 10),
-(10, 'Italy', 'Universita degli Studi di Pisa', 30, 10, 25);
+(1, 'Portugal', 'Universidade de Coimbra', 5, 1, 0),
+(2, 'United Kingdom', 'University of Kent', 10, 0, 1),
+(3, 'Spain', 'Universidad de Salamanca', 35, 1, 0),
+(4, 'Czech Republic', 'Masarykova univerzita', 30, 0, 0),
+(5, 'Switzerland', 'Universitat Basel', 3, 3, 0),
+(6, 'Germany', 'Universitat Stuttgart', 30, 1, 1),
+(7, 'Russia', 'Kazan Federal University', 30, 0, 1),
+(8, 'Italy', 'Universita degli Studi di Genova', 40, 1, 1),
+(9, 'France', 'Universite Paris-Saclay', 40, 0, 1),
+(10, 'Italy', 'Universita degli Studi di Pisa', 30, 0, 0);
 
 
 /* INSERTING FOREIGN STUDENTS */
@@ -61,16 +61,16 @@ values
 /* INSERTING APPLICATIONS */
 insert into applications (application_id, std_id, target_uni_id, priority, fund, result, term)
 values
-    (1, 1, 3, 1, 300, 0, 'fall'),
-    (2, 1, 5, 2, 400, 0, 'fall'),
-    (3, 2, 5, 1, 350, 0, 'fall'),
-    (4, 2, 2, 2, 300, 0, 'spring'),
-    (5, 2, 1, 3, 400, 0, 'fall'),
-    (6, 3, 5, 1, 200, 0, 'fall'),
-    (7, 3, 6, 2, 300, 0, 'full_year'),
-    (8, 4, 7, 1, 350, 0, 'spring'),
-    (9, 4, 8, 2, 300, 0, 'full_year'),
-    (10, 5, 9, 1, 400, 0, 'spring');
+    (1, 1, 3, 1, 300, false, 'fall'),
+    (2, 1, 5, 2, 400, false, 'fall'),
+    (3, 2, 5, 1, 350, false, 'fall'),
+    (4, 2, 2, 2, 300, false, 'spring'),
+    (5, 2, 1, 3, 400, false, 'fall'),
+    (6, 3, 5, 1, 200, false, 'fall'),
+    (7, 3, 6, 2, 300, false, 'full_year'),
+    (8, 4, 7, 1, 350, false, 'spring'),
+    (9, 4, 8, 2, 300, false, 'full_year'),
+    (10, 5, 9, 1, 400, false, 'spring');
 
 
 /* INSERTING LOGIN INFOS */
