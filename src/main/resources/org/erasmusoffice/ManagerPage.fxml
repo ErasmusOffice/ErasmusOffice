@@ -166,10 +166,6 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView layoutX="14.0" layoutY="309.0" prefHeight="293.0" prefWidth="1035.0" />
-                        <Button layoutX="1013.0" layoutY="6.0" mnemonicParsing="false" text="&gt;&gt;">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
                         <Label layoutX="16.0" layoutY="1.0" styleClass="attribute" text="Query:" />
                         <Label layoutX="14.0" layoutY="275.0" styleClass="attribute" text="Output:" />
                         <WebView fx:id="browser" layoutX="14.0" layoutY="36.0" prefHeight="243.0" prefWidth="1034.0" />
