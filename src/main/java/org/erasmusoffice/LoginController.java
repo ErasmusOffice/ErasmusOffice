@@ -68,6 +68,7 @@ public class LoginController {
                             Database.getStudent(Integer.valueOf(usernameInput.getText()), passwordInput.getText());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
+                } catch (RuntimeException e) {
                 }
                 if (studentInfo == null) {
                     alert.showAndWait();
