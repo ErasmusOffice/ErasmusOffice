@@ -12,6 +12,7 @@ public class Database {
     private static final String dbAdmin = "manager";
     private static final String dbPassword = "0000";
 
+
     public static void main(String[] args) {
         //        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
         //        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
@@ -100,6 +101,58 @@ public class Database {
         } catch (SQLException e) {
             System.out.println("error: Could not run the query.");
             e.printStackTrace();
+        }
+    }
+
+
+    public static Student getStudent(int stdId, String password) throws SQLException{
+        String sql = "SELECT std_id, exam_result, gpa, department, consultant_id, fname, lname FROM students" +
+                " WHERE std_id = ? and password = ?";
+        Student student = new Student();
+
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, stdId );
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                student.setStdID(stdId);
+                student.setExamResult(rs.getInt("exam_result"));
+                student.setGPA(rs.getDouble("gpa"));
+                student.setDepartment(rs.getString("department"));
+                student.setConsultantID(rs.getInt("consultant_id"));
+                student.setFname(rs.getString("fname"));
+                student.setLname(rs.getString("lname"));
+                return student;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Checks for the record with the given credentials in the login_infos tables.
+     *
+     * @return role of the person if found,
+     *         otherwise null
+     */
+    public static String checkLoginInfo(String username, String password) throws SQLException{
+        String sql = "SELECT role FROM login_infos" +
+                " WHERE username = ? and password = ?";
+        String role;
+
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username );
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                role = rs.getString("role");
+                return role;
+            } else {
+                return null;
+            }
         }
     }
 
