@@ -88,7 +88,7 @@ public class Database {
         }
     }
 
-    public static ArrayList<String> getUniversitys() {
+    public static ArrayList<String> getUniversities() {
         String query = "SELECT DISTINCT name FROM universities";
         ArrayList<String> names = new ArrayList<String>();
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
@@ -110,10 +110,10 @@ public class Database {
         String query = "Insert into applications Values(?, ?, ?, ?,?,?,?)";
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
                 conn.prepareStatement(query)) {
-        pstmt.setString(1,);
-        pstmt.setString(2,student);
-        pstmt.setString(3,);
-        pstmt.setString(3,);
+    //    pstmt.setString(1,);
+     //   pstmt.setString(2,student);
+      //  pstmt.setString(3,);
+       // pstmt.setString(3,);
 
         } catch (SQLException e) {
             System.out.println("error: Could not run the query.");

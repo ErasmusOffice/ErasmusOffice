@@ -121,7 +121,7 @@ public class StudentPageController {
 
     @FXML
     public void universityCombo(Event event) {
-        ObservableList<String> observableNames = FXCollections.observableList(Database.getUniversitys());
+        ObservableList<String> observableNames = FXCollections.observableList(Database.getUniversities());
         universityList.setItems(observableNames);
     }
 
@@ -146,5 +146,5 @@ public class StudentPageController {
     }
 
 
-    
+
 }
