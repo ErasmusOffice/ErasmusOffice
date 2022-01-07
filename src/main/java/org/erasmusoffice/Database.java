@@ -88,6 +88,75 @@ public class Database {
         }
     }
 
+    public static ArrayList<String> getUniversitys() {
+        String query = "SELECT DISTINCT name FROM universities";
+        ArrayList<String> names = new ArrayList<String>();
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
+            ResultSet r = stmt.executeQuery(query);
+            while(r.next()) {
+                names.add(r.getString("name"));
+            }
+            
+
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+        }
+        return names;
+    }
+
+
+    public static void application() {
+        String query = "Insert into applications Values(?, ?, ?, ?,?,?,?)";
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(query)) {
+        pstmt.setString(1,);
+        pstmt.setString(2,student);
+        pstmt.setString(3,);
+        pstmt.setString(3,);
+
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+        }
+    }
+
+    public static String getUniId(String name) {
+        String query = "Select uni_id From universities where name = ?";
+        String uniID = null;
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(query)) {
+            pstmt.setString(1,name);
+            ResultSet r = pstmt.executeQuery();
+            if (r.next ()) {
+                uniID = r.getString(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+        }
+        return uniID;
+    }
+
+    public static int getPriority(int id) {
+        String query = "Select count(*) from applications where std_id  = ?";
+        int priority = 0;
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(query)) {
+            pstmt.setInt(1,id);
+            ResultSet r = pstmt.executeQuery();
+            if (r.next ()) {
+                priority = r.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+        }
+        return priority;
+    }
+
     /**
      * Establishes connection with the database and tries to get metadata about tables.
      * This method can be used to test database connection.

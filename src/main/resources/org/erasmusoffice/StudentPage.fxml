@@ -74,28 +74,28 @@
                                     <Label styleClass="attribute" text="Student ID:" />
                                     <Label styleClass="attribute" text="First Name:" GridPane.rowIndex="1" />
                                     <Label styleClass="attribute" text="Last Name:" GridPane.rowIndex="2" />
-                                    <TextField editable="false" GridPane.columnIndex="1" />
-                                    <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField editable="false" prefWidth="386.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="idStudent" editable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="fname" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="lname" editable="false" prefWidth="386.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label styleClass="attribute" text="GPA:" GridPane.rowIndex="3" />
                                     <Label styleClass="attribute" text="University:" GridPane.rowIndex="6" />
-                                    <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <ComboBox prefHeight="25.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextField fx:id="gpa" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="universityList" onMouseClicked="#universityCombo" prefHeight="25.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                     <Label styleClass="attribute" text="Term" GridPane.rowIndex="5" />
                                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <children>
-                                          <CheckBox layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefWidth="74.0" text="Fall" />
-                                          <CheckBox layoutX="153.0" layoutY="16.0" mnemonicParsing="false" text="Spring" />
+                                          <CheckBox fx:id="termFall" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefWidth="74.0" text="Fall" />
+                                          <CheckBox fx:id="termSpring" layoutX="153.0" layoutY="16.0" mnemonicParsing="false" text="Spring" />
                                        </children>
                                     </Pane>
                                     <Label styleClass="attribute" text="Exam Result:" GridPane.rowIndex="4" />
-                                    <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="examResult" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
                               <Pane layoutX="230.0" layoutY="399.0">
                                  <children>
                                     <Button layoutX="7.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="133.0" styleClass="stylized-button-frame" />
-                                    <Button layoutY="7.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Apply" />
+                                    <Button fx:id="apply" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#application" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Apply" />
                                  </children>
                               </Pane>
                            </children>
