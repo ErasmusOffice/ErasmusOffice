@@ -142,10 +142,10 @@
                      <children>
                         <TableView layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1033.0">
                            <columns>
-                              <TableColumn prefWidth="246.0" text="Country" />
-                              <TableColumn prefWidth="272.0" text="University Name" />
-                              <TableColumn prefWidth="586.0" text="Fall Quota" />
-                              <TableColumn prefWidth="101.0" text="Spring Quota" />
+                              <TableColumn prefWidth="246.0" text="Student ID" />
+                              <TableColumn prefWidth="272.0" text="Student Name" />
+                              <TableColumn prefWidth="586.0" text="Country" />
+                              <TableColumn prefWidth="101.0" text="University Name" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

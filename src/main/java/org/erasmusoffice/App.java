@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.web.WebView;
+import javafx.scene.web.WebView;    
 
 import java.io.IOException;
 
