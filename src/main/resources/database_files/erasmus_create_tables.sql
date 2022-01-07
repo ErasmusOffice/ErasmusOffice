@@ -59,10 +59,7 @@ CREATE TABLE IF NOT EXISTS login_infos (
 );
 
 ALTER TABLE universities
-    ADD CONSTRAINT check_uni_capacity CHECK (fall_applicant_count <= capacity);
-
-ALTER TABLE universities
-    ADD CONSTRAINT check_uni_capacity CHECK (spring_applicant_count <= capacity);
+    ADD CONSTRAINT check_uni_capacity CHECK (fall_applicant_count <= capacity and spring_applicant_count <= capacity);
 
 ALTER TABLE students
     ADD FOREIGN KEY (consultant_id) REFERENCES consultants (consultant_id) ON DELETE SET NULL ON UPDATE CASCADE;
