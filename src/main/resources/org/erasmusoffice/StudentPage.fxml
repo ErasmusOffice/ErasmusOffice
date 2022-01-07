@@ -119,8 +119,12 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Button layoutX="925.0" layoutY="476.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="133.0" styleClass="stylized-button-frame" />
-                        <Button layoutX="918.0" layoutY="483.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Apply" />
+                        <Pane layoutX="918.0" layoutY="476.0">
+                           <children>
+                              <Button layoutX="7.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="133.0" styleClass="stylized-button-frame" />
+                              <Button layoutY="7.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Delete" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
             </content>
