@@ -32,6 +32,16 @@
         fontFamily: "consolas",
         fontSize: "11pt"
     });
+    editor.commands.addCommand({
+        name: 'executeQuery',
+        bindKey: {win: 'Ctrl-E',  mac: 'Command-E'},
+        exec: function(editor) {
+            alert("ready");
+        },
+        readOnly: true, // false if this command should not apply in readOnly mode
+        // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
+        // scrollIntoView: "cursor", control how cursor is scolled into view after the command
+    });
 </script>
 
 </body>

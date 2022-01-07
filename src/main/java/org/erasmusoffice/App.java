@@ -24,7 +24,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.initStyle(StageStyle.UNDECORATED);
-        Parent root = FXMLLoader.load(getClass().getResource("StudentPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ManagerPage.fxml"));
         scene = new Scene(root);
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

@@ -7,10 +7,7 @@ import java.util.List;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -42,6 +39,23 @@ public class StudentPageController {
     @FXML
     private TableColumn<ApplicationModel, String> term;
 
+    @FXML
+    private TableView<UniversityModel> universitiesTable;
+
+    @FXML
+    private TableColumn<UniversityModel, String> country;
+
+    @FXML
+    private TableColumn<UniversityModel, String> uniName;
+
+    @FXML
+    private TableColumn<UniversityModel, String> fallQuota;
+
+    @FXML
+    private TableColumn<UniversityModel, String> springQuota;
+
+    @FXML
+    private Tab universitiesTab;
 
     @FXML
     public void initialize(){
@@ -49,6 +63,11 @@ public class StudentPageController {
         studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("studentID"));
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));
         term.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("term"));
+
+        country.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("country"));
+        uniName.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("name"));
+        fallQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("fallQuota"));
+        springQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("springQuota"));
 
     }
 
@@ -62,5 +81,12 @@ public class StudentPageController {
     private void showTable(){
 //        ApplicationModel test = new ApplicationModel(1, 1, "AAA", "BBB");
 //        applicationTable.getItems().add(test);
+    }
+
+    @FXML
+    private void universityTabPressed(){
+        universitiesTable.getItems().clear();
+        ArrayList<UniversityModel> universities = Database.getUniversitiesInfo();
+        universitiesTable.getItems().addAll(universities);
     }
 }
