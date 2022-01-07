@@ -1,9 +1,10 @@
-DROP TABLE IF EXISTS students CASCADE;
-DROP TABLE IF EXISTS applications CASCADE;
-DROP TABLE IF EXISTS consultants CASCADE;
-DROP TABLE IF EXISTS universities CASCADE;
-DROP TABLE IF EXISTS foreign_students CASCADE;
-DROP TABLE IF EXISTS login_infos CASCADE;
+-- DROP TABLE IF EXISTS students CASCADE;
+-- DROP TABLE IF EXISTS applications CASCADE;
+-- DROP TABLE IF EXISTS consultants CASCADE;
+-- DROP TABLE IF EXISTS universities CASCADE;
+-- DROP TABLE IF EXISTS foreign_students CASCADE;
+-- DROP TABLE IF EXISTS login_infos CASCADE;
+-- DROP SEQUENCE applications_id_seq;
 
 CREATE TABLE IF NOT EXISTS students (
     std_id integer PRIMARY KEY,
@@ -16,8 +17,11 @@ CREATE TABLE IF NOT EXISTS students (
     lname varchar(50) NOT NULL
 );
 
+--Sequence
+CREATE SEQUENCE IF NOT EXISTS applications_id_seq;
+
 CREATE TABLE IF NOT EXISTS applications (
-    application_id integer PRIMARY KEY,
+    application_id integer PRIMARY KEY DEFAULT nextval('applications_id_seq'),
     std_id integer,
     target_uni_id integer,
     priority integer NOT NULL,
@@ -26,6 +30,8 @@ CREATE TABLE IF NOT EXISTS applications (
     term varchar(20) CHECK (term IN ('fall', 'spring', 'full_year')),
     UNIQUE (std_id, target_uni_id, term)
 );
+ALTER SEQUENCE applications_id_seq
+    OWNED BY applications.application_id;
 
 CREATE TABLE IF NOT EXISTS consultants (
     consultant_id integer PRIMARY KEY,
@@ -89,4 +95,3 @@ COMMENT ON TABLE universities IS 'Universities that currently accept student exc
 COMMENT ON TABLE foreign_students IS 'Foreign Erasmus students';
 
 COMMENT ON TABLE login_infos IS 'Username and password infos to be used in the login page';
-

@@ -22,7 +22,7 @@
       <TextField fx:id="usernameInput" layoutX="351.0" layoutY="171.0" prefHeight="38.0" prefWidth="326.0" promptText="username" styleClass="text-field" />
       <PasswordField fx:id="passwordInput" layoutX="351.0" layoutY="215.0" prefHeight="38.0" prefWidth="326.0" promptText="password" />
       <Button fx:id="button2" layoutX="451.0" layoutY="332.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="131.0" styleClass="not-button" />
-      <Button fx:id="loginButton" layoutX="447.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#loginButtonPressed" prefHeight="31.0" prefWidth="131.0" styleClass="real-button" text="Login" />
+      <Button fx:id="loginButton" layoutX="447.0" layoutY="337.0" mnemonicParsing="false" onMousePressed="#loginButtonPressed" prefHeight="31.0" prefWidth="131.0" styleClass="real-button" text="Login" />
       <Label fx:id="closeButton" alignment="CENTER" layoutX="715.0" layoutY="7.0" onMousePressed="#closeScreen" prefHeight="31.0" prefWidth="28.0" text="X" textFill="#1b998b">
          <font>
             <Font name="System Bold" size="23.0" />
