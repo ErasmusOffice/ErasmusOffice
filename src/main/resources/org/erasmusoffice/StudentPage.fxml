@@ -129,16 +129,16 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Universities">
+            <Tab fx:id="universitiesTab" onSelectionChanged="#universityTabPressed" text="Universities">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-panel">
                      <children>
-                        <TableView layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1044.0">
+                        <TableView fx:id="universitiesTable" layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1044.0">
                            <columns>
-                              <TableColumn prefWidth="151.0" text="Country" />
-                              <TableColumn prefWidth="193.0" text="University Name" />
-                              <TableColumn prefWidth="586.0" text="Fall Quota" />
-                              <TableColumn prefWidth="101.0" text="Spring Quota" />
+                              <TableColumn fx:id="country" prefWidth="151.0" text="Country" />
+                              <TableColumn fx:id="uniName" prefWidth="193.0" text="University Name" />
+                              <TableColumn fx:id="fallQuota" prefWidth="586.0" text="Fall Quota" />
+                              <TableColumn fx:id="springQuota" prefWidth="101.0" text="Spring Quota" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

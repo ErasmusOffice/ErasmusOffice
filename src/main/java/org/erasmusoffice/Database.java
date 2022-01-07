@@ -1,8 +1,16 @@
 package org.erasmusoffice;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.util.Callback;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Database {
@@ -14,8 +22,8 @@ public class Database {
 
 
     public static void main(String[] args) {
-        //        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
-        //        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
+                importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
+                importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
         testDb();
 
         System.out.println("-Database.java main terminated succesfully-");
@@ -104,7 +112,6 @@ public class Database {
         }
     }
 
-
     public static Student getStudent(int stdId, String password) throws SQLException{
         String sql = "SELECT std_id, exam_result, gpa, department, consultant_id, fname, lname FROM students" +
                 " WHERE std_id = ? and password = ?";
@@ -156,4 +163,26 @@ public class Database {
         }
     }
 
+    public static ArrayList<UniversityModel> getUniversitiesInfo(){
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
+            String sql = "SELECT country, name, fall_applicant_count, spring_applicant_count FROM universities";
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList<UniversityModel> universities = new ArrayList<>();
+            while(rs.next()){
+                UniversityModel university = new UniversityModel();
+                university.setCountry(rs.getString("country"));
+                university.setFallQuota(rs.getInt("fall_applicant_count"));
+                university.setSpringQuota(rs.getInt("spring_applicant_count"));
+                university.setName(rs.getString("name"));
+                universities.add(university);
+            }
+            return universities;
+
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }
