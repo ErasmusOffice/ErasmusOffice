@@ -14,18 +14,18 @@ values
 
 
 /* INSERTING STUDENTS */
-insert into students (std_id, exam_result, gpa, department, consultant_id, fname, lname)
+insert into students (std_id, password, exam_result, gpa, department, consultant_id, fname, lname)
 values
-       (1, 80, 2.8, 'Biology', 2, 'Yuksel', 'Altin'),
-       (2, 90, 2.8, 'Chemistry', 3, 'Alpay', 'Dereli'),
-       (3, 70, 2.8, 'Electrical Engineering', 4, 'Ersoy', 'Karakus'),
-       (4, 85, 2.8, 'History', 5, 'Toprak', 'Isler'),
-       (5, 95, 2.8, 'Computer Science', 6, 'Kudret', 'Dincer'),
-       (6, 70, 2.8, 'General Business', 7, 'Leyla', 'Tansu'),
-       (7, 95, 2.8, 'Marketing and Management', 8, 'Berna', 'Yavuz'),
-       (8, 85, 2.8, 'Linguistics', 9, 'Varol', 'Caglayan'),
-       (9, 85, 2.8, 'Medicine', 1, 'Erdem', 'Karaca'),
-       (10, 75, 2.8, 'Mathematics', 10, 'Aydiner', 'Sisli');
+       (1, '0001', 80, 2.8, 'Biology', 2, 'Yuksel', 'Altin'),
+       (2, '0002', 90, 2.8, 'Chemistry', 3, 'Alpay', 'Dereli'),
+       (3, '0003', 70, 2.8, 'Electrical Engineering', 4, 'Ersoy', 'Karakus'),
+       (4, '0004', 85, 2.8, 'History', 5, 'Toprak', 'Isler'),
+       (5, '0005', 95, 2.8, 'Computer Science', 6, 'Kudret', 'Dincer'),
+       (6, '0006', 70, 2.8, 'General Business', 7, 'Leyla', 'Tansu'),
+       (7, '0007', 95, 2.8, 'Marketing and Management', 8, 'Berna', 'Yavuz'),
+       (8, '0008', 85, 2.8, 'Linguistics', 9, 'Varol', 'Caglayan'),
+       (9, '0009', 85, 2.8, 'Medicine', 1, 'Erdem', 'Karaca'),
+       (10, '0010', 75, 2.8, 'Mathematics', 10, 'Aydiner', 'Sisli');
 
 
 /* INSERTING UNIVERSITIES */
@@ -80,9 +80,6 @@ values
     ('manager2', '1234', 'manager'),
     ('manager3', '1234', 'manager'),
     ('manager4', '1234', 'manager'),
-    ('student1', '1234', 'student'),
-    ('student2', '1234', 'student'),
-    ('student3', '1234', 'student'),
     ('itstaff1', '1234', 'it_staff'),
     ('itstaff2', '1234', 'it_staff'),
     ('itstaff3', '1234', 'it_staff');
