@@ -13,8 +13,8 @@ public class Database {
     private static final String dbPassword = "0000";
 
     public static void main(String[] args) {
-//        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
-//        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
+        //        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
+        //        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
         testDb();
 
         System.out.println("-Database.java main terminated succesfully-");
@@ -65,8 +65,7 @@ public class Database {
      * No operation if the tables already exist.
      */
     public static void importSqlQuery(String queryPath) {
-        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
-             Statement stmt = conn.createStatement()) {
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
             String sql = getSqlQuery(queryPath);
 
             for (String s : sql.split(";")) {
@@ -85,13 +84,12 @@ public class Database {
      * This method can be used to test database connection.
      */
     public static void testDb() {
-        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
-             Statement stmt = conn.createStatement()) {
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
             DatabaseMetaData dbMetaData = conn.getMetaData();
-            ResultSet rs = dbMetaData.getTables(null, null, null, new String[]{"TABLE"});
+            ResultSet rs = dbMetaData.getTables(null, null, null, new String[] {"TABLE"});
 
             System.out.println("Available tables:");
-            while(rs.next()) {
+            while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME");
                 String remarks = rs.getString("REMARKS");
 

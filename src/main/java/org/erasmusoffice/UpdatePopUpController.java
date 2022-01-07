@@ -17,8 +17,8 @@ public class UpdatePopUpController {
     private Label closeButton;
 
     @FXML
-    private void closeScreen(Event event){
-        Stage loginStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    private void closeScreen(Event event) {
+        Stage loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         loginStage.close();
     }
 }

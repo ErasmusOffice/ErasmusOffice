@@ -35,13 +35,13 @@ public class ManagerPageController {
     private Label closeButton;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         WebEngine webEngine = browser.getEngine();
         webEngine.load(getClass().getResource("/ace/editor.html").toExternalForm());
     }
 
     @FXML
-    public void showPopUp(){
+    public void showPopUp() {
         try {
             Parent root1 = App.loadFXML("UpdatePopUp");
             Stage stage = new Stage();
@@ -56,8 +56,8 @@ public class ManagerPageController {
     }
 
     @FXML
-    private void closeScreen(Event event){
-        Stage loginStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    private void closeScreen(Event event) {
+        Stage loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         loginStage.close();
     }
 }
