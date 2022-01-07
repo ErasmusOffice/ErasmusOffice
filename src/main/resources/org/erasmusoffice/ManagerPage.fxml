@@ -74,7 +74,16 @@
                                     <Label styleClass="attribute" text="Student ID:" />
                                     <Label styleClass="attribute" text="First Name:" GridPane.rowIndex="1" />
                                     <Label styleClass="attribute" text="Last Name:" GridPane.rowIndex="2" />
-                                    <TextField editable="false" GridPane.columnIndex="1" />
+                                    <Pane prefWidth="202.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <TextField prefHeight="44.0" prefWidth="196.0" />
+                                          <Button layoutX="213.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="√">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </Pane>
                                     <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField editable="false" prefWidth="386.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label styleClass="attribute" text="GPA:" GridPane.rowIndex="3" />
