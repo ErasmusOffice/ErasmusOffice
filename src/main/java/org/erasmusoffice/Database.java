@@ -15,8 +15,8 @@ public class Database {
 
 
     public static void main(String[] args) {
-//        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
-//        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
+        //        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
+        //        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
         testDb();
 
         System.out.println("-Database.java main terminated succesfully-");
@@ -86,10 +86,10 @@ public class Database {
         ArrayList<String> names = new ArrayList<String>();
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
             ResultSet r = stmt.executeQuery(query);
-            while(r.next()) {
+            while (r.next()) {
                 names.add(r.getString("name"));
             }
-            
+
 
         } catch (SQLException e) {
             System.out.println("error: Could not run the query.");
@@ -103,10 +103,10 @@ public class Database {
         String query = "Insert into applications Values(?, ?, ?, ?,?,?,?)";
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
                 conn.prepareStatement(query)) {
-    //    pstmt.setString(1,);
-     //   pstmt.setString(2,student);
-      //  pstmt.setString(3,);
-       // pstmt.setString(3,);
+            //    pstmt.setString(1,);
+            //   pstmt.setString(2,student);
+            //  pstmt.setString(3,);
+            // pstmt.setString(3,);
 
         } catch (SQLException e) {
             System.out.println("error: Could not run the query.");
@@ -119,9 +119,9 @@ public class Database {
         String uniID = null;
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
                 conn.prepareStatement(query)) {
-            pstmt.setString(1,name);
+            pstmt.setString(1, name);
             ResultSet r = pstmt.executeQuery();
-            if (r.next ()) {
+            if (r.next()) {
                 uniID = r.getString(1);
             }
 
@@ -137,9 +137,9 @@ public class Database {
         int priority = 0;
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
                 conn.prepareStatement(query)) {
-            pstmt.setInt(1,id);
+            pstmt.setInt(1, id);
             ResultSet r = pstmt.executeQuery();
-            if (r.next ()) {
+            if (r.next()) {
                 priority = r.getInt(1);
             }
 
@@ -174,6 +174,13 @@ public class Database {
         }
     }
 
+
+    /**
+     * Searches student with the given login info in the students table.
+     *
+     * @return object of found student if exists,
+     * null object otherwise
+     */
     public static Student getStudent(int stdId, String password) throws SQLException {
         String sql = "SELECT std_id, exam_result, gpa, department, consultant_id, fname, lname FROM students" +
                 " WHERE std_id = ? and password = ?";
@@ -204,7 +211,7 @@ public class Database {
      * Checks for the record with the given credentials in the login_infos tables.
      *
      * @return role of the person if found,
-     * otherwise null
+     * null string otherwise
      */
     public static String checkLoginInfo(String username, String password) throws SQLException {
         String sql = "SELECT role FROM login_infos" +
