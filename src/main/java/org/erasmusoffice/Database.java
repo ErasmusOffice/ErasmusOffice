@@ -235,13 +235,32 @@ public class Database {
     /**
      * Returns all of given student's applications.
      *
-     private int appID;
-     private int studentID;
-     private String universityName;
-     private String term;
-     *
      * @return ArrayList containing ApplicationModels of the found applications
      */
+    public static ArrayList<ApplicationModel> getApplicationsOfStudent(int student_id) {
+        String sql = "select * from manager_get_applications(?)";
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(sql)) {
+            ArrayList<ApplicationModel> applications = new ArrayList<>();
+
+            pstmt.setInt(1, student_id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ApplicationModel application = new ApplicationModel();
+                application.setAppID(rs.getInt(1));
+                application.setStudentID(rs.getInt(2));
+                application.setUniversityName(rs.getString(3));
+                application.setTerm(rs.getString(4));
+                applications.add(application);
+            }
+            return applications;
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 
