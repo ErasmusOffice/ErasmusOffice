@@ -1,8 +1,5 @@
 package org.erasmusoffice;
 
-import java.sql.*;
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -15,37 +12,30 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class StudentPageController {
-
     /*@FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }*/
-
-
     private static final String dbUrl = "jdbc:postgresql://localhost:5432/erasmus_db";
     private static final String dbAdmin = "student";
     private static final String dbPassword = "0000";
 
     @FXML
     private Label closeButton;
-
     @FXML
     private Button deleteButton;
 
     @FXML
     private TableView<ApplicationModel> applicationTable;
-
     @FXML
-    private TableColumn<ApplicationModel, String> appId;
-
+    private TableColumn<ApplicationModel, Integer> appId;
     @FXML
-    private TableColumn<ApplicationModel, String> studentID;
-
+    private TableColumn<ApplicationModel, Integer> studentID;
     @FXML
     private TableColumn<ApplicationModel, String> universityName;
-
     @FXML
     private TableColumn<ApplicationModel, String> term;
+
     @FXML
     private TextField idStudent;
     @FXML
@@ -65,39 +55,30 @@ public class StudentPageController {
     @FXML
     private Button apply;
 
-
     @FXML
     private TableView<UniversityModel> universitiesTable;
-
     @FXML
     private TableColumn<UniversityModel, String> country;
-
     @FXML
     private TableColumn<UniversityModel, String> uniName;
-
     @FXML
-    private TableColumn<UniversityModel, String> fallQuota;
-
+    private TableColumn<UniversityModel, Integer> fallQuota;
     @FXML
-    private TableColumn<UniversityModel, String> springQuota;
-
+    private TableColumn<UniversityModel, Integer> springQuota;
     @FXML
     private Tab universitiesTab;
 
     @FXML
-    public void initialize(String dbAdmin, String dbPassword) {
-        appId.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("appID"));
-        studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("studentID"));
+    public void initialize() {
+        appId.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("appID"));
+        studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("studentID"));
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));
         term.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("term"));
 
-
         country.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("country"));
         uniName.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("name"));
-        fallQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("fallQuota"));
-        springQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("springQuota"));
-
-
+        fallQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, Integer>("fallQuota"));
+        springQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, Integer>("springQuota"));
     }
 
     @FXML
@@ -114,8 +95,6 @@ public class StudentPageController {
 
         String uniName = universityList.getValue();
         System.out.println(uniName);
-
-
     }
 
 
@@ -144,7 +123,4 @@ public class StudentPageController {
         ArrayList<UniversityModel> universities = Database.getUniversitiesInfo();
         universitiesTable.getItems().addAll(universities);
     }
-
-
-
 }

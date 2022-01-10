@@ -1,19 +1,10 @@
 package org.erasmusoffice;
 
-import java.time.LocalDate;
-
 public class ApplicationModel {
     private int appID;
     private int studentID;
     private String universityName;
     private String term;
-
-    public ApplicationModel(int appID, int studentID, String universityName, String term) {
-        this.appID = appID;
-        this.studentID = studentID;
-        this.universityName = universityName;
-        this.term = term;
-    }
 
     public int getAppID() {
         return appID;

@@ -232,6 +232,19 @@ public class Database {
         }
     }
 
+    /**
+     * Returns all of given student's applications.
+     *
+     private int appID;
+     private int studentID;
+     private String universityName;
+     private String term;
+     *
+     * @return ArrayList containing ApplicationModels of the found applications
+     */
+
+
+
     public static ArrayList<UniversityModel> getUniversitiesInfo() {
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
             String sql = "SELECT country, name, fall_applicant_count, spring_applicant_count FROM universities";
