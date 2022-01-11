@@ -1,10 +1,11 @@
 package org.erasmusoffice;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.apache.ibatis.jdbc.ScriptRunner;
 
 public class Database {
     public final static int MAX_DAYS_TO_RETURN = 20;
@@ -14,11 +15,10 @@ public class Database {
     private static final String dbPassword = "0000";
 
 
-    public static void main(String[] args) {
-        //        importSqlQuery("src/main/resources/database_files/erasmus_create_tables.sql");
-        //        importSqlQuery("src/main/resources/database_files/erasmus_fill_tables.sql");
+    public static void main(String[] args) throws SQLException {
+        File file = new File("src/main/resources/database_files/erasmus_functions.sql");
+        importSqlQuery(file);
         testDb();
-
         System.out.println("-Database.java main terminated succesfully-");
     }
 
@@ -66,17 +66,16 @@ public class Database {
      * Creates all of the needed database tables for the application.
      * No operation if the tables already exist.
      */
-    public static void importSqlQuery(String queryPath) {
-        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
-            String sql = getSqlQuery(queryPath);
-
-            for (String s : sql.split(";")) {
-                if (!s.equals("\n")) {
-                    stmt.execute(s + ";");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("error: Could not create the tables.");
+    public static void importSqlQuery(File file) throws SQLException {
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword)) {
+            ScriptRunner runner = new ScriptRunner(conn);
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
+            runner.setSendFullScript(true);
+            runner.runScript(reader);
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -263,7 +262,6 @@ public class Database {
 
 
 
-
     public static ArrayList<UniversityModel> getUniversitiesInfo() {
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
             String sql = "SELECT country, name, fall_applicant_count, spring_applicant_count FROM universities";
@@ -285,5 +283,41 @@ public class Database {
             return null;
         }
 
+    }
+
+    public static ArrayList<ApplicationModel> getApplicationsInfo() {
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
+            String sql = "SELECT application_id, std_id, name, term FROM applications a INNER JOIN universities u ON " +
+                    "u.uni_id = a.target_uni_id";
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList<ApplicationModel> applications = new ArrayList<>();
+            while (rs.next()) {
+                ApplicationModel application = new ApplicationModel();
+                application.setAppID(rs.getInt("application_id"));
+                application.setStudentID(rs.getInt("std_id"));
+                application.setUniversityName(rs.getString("name"));
+                application.setTerm(rs.getString("term"));
+                applications.add(application);
+            }
+            return applications;
+
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static void deleteApplication(int applicationID) {
+        String sql = "DELETE FROM applications WHERE application_id = ?";
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(sql)) {
+            pstmt.setInt(1, applicationID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+        }
     }
 }

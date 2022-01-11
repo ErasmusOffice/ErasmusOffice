@@ -1,6 +1,6 @@
 DROP TYPE IF EXISTS application_type CASCADE;
 
-drop function  manager_get_applications(student_id_input int);
+--drop function  manager_get_applications(student_id_input int);
 CREATE OR REPLACE FUNCTION manager_get_applications(student_id_input int)
     RETURNS table(application_id int, std_id int, name varchar(50), term varchar(20))
 AS

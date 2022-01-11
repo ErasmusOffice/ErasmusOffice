@@ -6,19 +6,27 @@
 -- DROP TABLE IF EXISTS login_infos CASCADE;
 -- DROP SEQUENCE if exists applications_id_seq;
 
-CREATE TABLE IF NOT EXISTS students
-(
-    std_id        integer PRIMARY KEY,
-    password      varchar(50) NOT NULL,
-    exam_result   integer CHECK (exam_result > 0),
-    GPA           numeric(3, 2) CHECK (GPA >= 2.5),
-    department    varchar(50),
+DROP TABLE IF EXISTS students CASCADE;
+DROP TABLE IF EXISTS applications CASCADE;
+DROP TABLE IF EXISTS consultants CASCADE;
+DROP TABLE IF EXISTS universities CASCADE;
+DROP TABLE IF EXISTS foreign_students CASCADE;
+DROP TABLE IF EXISTS login_infos CASCADE;
+DROP SEQUENCE IF EXISTS applications_id_seq;
+
+CREATE TABLE IF NOT EXISTS students (
+    std_id integer PRIMARY KEY,
+    password varchar(50) NOT NULL,
+    exam_result integer CHECK (exam_result > 0),
+    GPA numeric(3, 2) CHECK (GPA > 2.5),
+    department varchar(50),
     consultant_id integer,
     fname         varchar(50) NOT NULL,
     lname         varchar(50) NOT NULL
 );
 
 --Sequence
+
 CREATE SEQUENCE IF NOT EXISTS applications_id_seq;
 
 CREATE TABLE IF NOT EXISTS applications

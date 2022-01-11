@@ -221,7 +221,16 @@
     -fx-background-color:white;
 }
 .combo-box .list-cell{
-    -fx-background-color:white;
+    /*-fx-background-color:#1b998b;*/
+}
+
+.combo-box .list-cell:hover{
+    -fx-background-color: #1b998b;
+}
+
+.combo-box .list-cell:selected{
+    -fx-background-color: #1b998b;
+    -fx-text-fill: white;
 }
 
 .top-pane-image{
