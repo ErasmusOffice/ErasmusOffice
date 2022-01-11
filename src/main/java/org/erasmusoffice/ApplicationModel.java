@@ -8,13 +8,6 @@ public class ApplicationModel {
     private String universityName;
     private String term;
 
-    public ApplicationModel(int appID, int studentID, String universityName, String term) {
-        this.appID = appID;
-        this.studentID = studentID;
-        this.universityName = universityName;
-        this.term = term;
-    }
-
     public int getAppID() {
         return appID;
     }

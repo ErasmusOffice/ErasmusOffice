@@ -55,6 +55,7 @@ public class ManagerPageController {
     @FXML
     public void initialize() {
         WebEngine webEngine = browser.getEngine();
+//        webEngine.load("https://www.google.com");
         webEngine.load(getClass().getResource("/ace/editor.html").toExternalForm());
     }
 

@@ -1,10 +1,10 @@
--- DROP TABLE IF EXISTS students CASCADE;
--- DROP TABLE IF EXISTS applications CASCADE;
--- DROP TABLE IF EXISTS consultants CASCADE;
--- DROP TABLE IF EXISTS universities CASCADE;
--- DROP TABLE IF EXISTS foreign_students CASCADE;
--- DROP TABLE IF EXISTS login_infos CASCADE;
--- DROP SEQUENCE applications_id_seq;
+DROP TABLE IF EXISTS students CASCADE;
+DROP TABLE IF EXISTS applications CASCADE;
+DROP TABLE IF EXISTS consultants CASCADE;
+DROP TABLE IF EXISTS universities CASCADE;
+DROP TABLE IF EXISTS foreign_students CASCADE;
+DROP TABLE IF EXISTS login_infos CASCADE;
+DROP SEQUENCE IF EXISTS applications_id_seq;
 
 CREATE TABLE IF NOT EXISTS students (
     std_id integer PRIMARY KEY,
@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS students (
 );
 
 --Sequence
+
 CREATE SEQUENCE IF NOT EXISTS applications_id_seq;
 
 CREATE TABLE IF NOT EXISTS applications (

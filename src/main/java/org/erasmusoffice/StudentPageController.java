@@ -85,7 +85,10 @@ public class StudentPageController {
     private Tab universitiesTab;
 
     @FXML
-    public void initialize(String dbAdmin, String dbPassword) {
+    private Tab applicationsTab;
+
+    @FXML
+    public void initialize() {
         appId.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("appID"));
         studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("studentID"));
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));
@@ -145,6 +148,19 @@ public class StudentPageController {
         universitiesTable.getItems().addAll(universities);
     }
 
+    @FXML
+    private void applicationsTabPressed(){
+        applicationTable.getItems().clear();
+        ArrayList<ApplicationModel> applications = Database.getApplicationsInfo();
+        applicationTable.getItems().addAll(applications);
+    }
 
-
+    @FXML
+    private void deleteApplication(){
+        int goner = applicationTable.getSelectionModel().getSelectedItem().getAppID();
+        Database.deleteApplication(goner);
+        applicationTable.getItems().clear();
+        ArrayList<ApplicationModel> applications = Database.getApplicationsInfo();
+        applicationTable.getItems().addAll(applications);
+    }
 }
