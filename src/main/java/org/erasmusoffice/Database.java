@@ -18,6 +18,8 @@ public class Database {
     public static void main(String[] args) throws SQLException {
         File file = new File("src/main/resources/database_files/erasmus_functions.sql");
         importSqlQuery(file);
+        file = new File("src/main/resources/database_files/trigger.sql");
+        importSqlQuery(file);
         testDb();
         System.out.println("-Database.java main terminated succesfully-");
     }

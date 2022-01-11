@@ -1,13 +1,13 @@
 
 CREATE OR REPLACE FUNCTION decrease_priority_func()
-    RETURNS TRIGGER AS '
+    RETURNS TRIGGER AS $$
 BEGIN
     UPDATE applications
     SET priority = priority - 1
     WHERE std_id = OLD.std_id and priority > OLD.priority;
     RETURN OLD;
 END;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 
 DROP TRIGGER IF EXISTS decrease_priority ON applications;
