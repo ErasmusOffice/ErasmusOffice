@@ -35,6 +35,8 @@ public class StudentPageController {
     private TableColumn<ApplicationModel, String> universityName;
     @FXML
     private TableColumn<ApplicationModel, String> term;
+    @FXML
+    private TableColumn<ApplicationModel, String> result;
 
     @FXML
     private TextField idStudent;
@@ -75,9 +77,9 @@ public class StudentPageController {
     public void initialize() {
         appId.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("appID"));
         studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("studentID"));
-
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));
         term.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("term"));
+        result.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("resultString"));
 
         country.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("country"));
         uniName.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("name"));
@@ -131,7 +133,7 @@ public class StudentPageController {
     @FXML
     private void applicationsTabPressed(){
         applicationTable.getItems().clear();
-        ArrayList<ApplicationModel> applications = Database.getApplicationsInfo();
+        ArrayList<ApplicationModel> applications = Database.getApplicationsOfStudent(LoginController.studentInfo.getStdID());
         applicationTable.getItems().addAll(applications);
     }
 

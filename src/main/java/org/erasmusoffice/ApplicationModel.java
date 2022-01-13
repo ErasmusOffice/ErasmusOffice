@@ -5,6 +5,8 @@ public class ApplicationModel {
     private int studentID;
     private String universityName;
     private String term;
+    private Boolean result;
+    private String resultString;
 
     public int getAppID() {
         return appID;
@@ -36,5 +38,22 @@ public class ApplicationModel {
 
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public Boolean getResult() {
+        return result;
+    }
+
+    public String getResultString(){
+        return resultString;
+    }
+
+    public void setResult(Boolean result) {
+        this.result = result;
+        if(result){
+            resultString = "Approved";
+        }else{
+            resultString = "Denied";
+        }
     }
 }

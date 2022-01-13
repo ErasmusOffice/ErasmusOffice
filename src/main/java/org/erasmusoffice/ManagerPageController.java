@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
@@ -57,7 +58,14 @@ public class ManagerPageController {
     private TableColumn<ApplicationModel, String> universityName;
     @FXML
     private TableColumn<ApplicationModel, String> term;
+    @FXML
+    private TableColumn<ApplicationModel, String> result;
 
+    @FXML
+    private Tab applicationsTab;
+
+    @FXML
+    private Button placeButton;
 
     @FXML
     public void initialize() {
@@ -69,6 +77,7 @@ public class ManagerPageController {
         studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("studentID"));
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));
         term.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("term"));
+        result.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("resultString"));
     }
 
     @FXML
@@ -154,5 +163,17 @@ public class ManagerPageController {
             alert.setContentText("Enter an integer.");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    private void applicationsTabPressed(){
+        applicationTable.getItems().clear();
+        ArrayList<ApplicationModel> applications = Database.getApplicationsInfo();
+        applicationTable.getItems().addAll(applications);
+    }
+
+    @FXML
+    private void placeButtonPressed(){
+        Database.placeStudents();
     }
 }

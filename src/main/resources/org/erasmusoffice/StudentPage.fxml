@@ -114,6 +114,7 @@
                             <TableColumn fx:id="studentID" prefWidth="193.0" text="Student ID" />
                               <TableColumn fx:id="universityName" prefWidth="586.0" text="University Name" />
                               <TableColumn fx:id="term" prefWidth="101.0" text="Term" />
+                              <TableColumn fx:id="result" prefWidth="75.0" text="Result" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

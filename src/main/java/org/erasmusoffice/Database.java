@@ -16,12 +16,16 @@ public class Database {
 
 
     public static void main(String[] args) throws SQLException {
-        File file = new File("src/main/resources/database_files/erasmus_functions.sql");
+        File file = new File("src/main/resources/database_files/erasmus_create_tables.sql");
+        importSqlQuery(file);
+        file = new File("src/main/resources/database_files/erasmus_fill_tables.sql");
+        importSqlQuery(file);
+        file = new File("src/main/resources/database_files/erasmus_functions.sql");
         importSqlQuery(file);
         file = new File("src/main/resources/database_files/trigger.sql");
         importSqlQuery(file);
         testDb();
-        System.out.println("-Database.java main terminated succesfully-");
+        System.out.println("-Database.java main terminated successfully-");
     }
 
     /**
@@ -252,7 +256,9 @@ public class Database {
                 application.setStudentID(rs.getInt(2));
                 application.setUniversityName(rs.getString(3));
                 application.setTerm(rs.getString(4));
+                application.setResult(rs.getBoolean(5));
                 applications.add(application);
+                System.out.println("appId " + application.getAppID());
             }
             return applications;
         } catch (SQLException e) {
@@ -289,8 +295,8 @@ public class Database {
 
     public static ArrayList<ApplicationModel> getApplicationsInfo() {
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
-            String sql = "SELECT application_id, std_id, name, term FROM applications a INNER JOIN universities u ON " +
-                    "u.uni_id = a.target_uni_id";
+            String sql = "SELECT application_id, std_id, name, term, result FROM applications a INNER JOIN " +
+                    "universities  u ON u.uni_id = a.target_uni_id";
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList<ApplicationModel> applications = new ArrayList<>();
             while (rs.next()) {
@@ -299,6 +305,7 @@ public class Database {
                 application.setStudentID(rs.getInt("std_id"));
                 application.setUniversityName(rs.getString("name"));
                 application.setTerm(rs.getString("term"));
+                application.setResult(rs.getBoolean("result"));
                 applications.add(application);
             }
             return applications;
@@ -320,6 +327,22 @@ public class Database {
         } catch (SQLException e) {
             System.out.println("error: Could not run the query.");
             e.printStackTrace();
+        }
+    }
+
+    public static void placeStudents(){
+        String sql = "SELECT * FROM place_students()";
+
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            System.out.println(rs.getArray(rs.getRow()));
+            System.out.println(rs.getArray(rs.getRow()));
+//            while(rs.next()){
+//                System.out.println(rs.);
+//            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
