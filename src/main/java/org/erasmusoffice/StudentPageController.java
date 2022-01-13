@@ -54,6 +54,7 @@ public class StudentPageController {
     private CheckBox termSpring;
     @FXML
     private ComboBox<String> universityList;
+
     @FXML
     private Button apply;
 
@@ -74,6 +75,9 @@ public class StudentPageController {
     private Tab applicationsTab;
 
     @FXML
+    private Label studentNameLabel;
+
+    @FXML
     public void initialize() {
         appId.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("appID"));
         studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("studentID"));
@@ -85,11 +89,19 @@ public class StudentPageController {
         uniName.setCellValueFactory(new PropertyValueFactory<UniversityModel, String>("name"));
         fallQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, Integer>("fallQuota"));
         springQuota.setCellValueFactory(new PropertyValueFactory<UniversityModel, Integer>("springQuota"));
+        studentNameLabel.setText(LoginController.studentInfo.getFname() + " " + LoginController.studentInfo.getLname());
+
+
+        idStudent.setText(String.valueOf(LoginController.studentInfo.getStdID()));
+        fname.setText(LoginController.studentInfo.getFname());
+        lname.setText(LoginController.studentInfo.getLname());
+        gpa.setText(String.valueOf(LoginController.studentInfo.getGPA()));
+        examResult.setText(String.valueOf(LoginController.studentInfo.getExamResult()));
     }
 
     @FXML
-    public void application(Event event) {
-        String term;
+    public void applyButtonPressed(Event event) {
+        String term = "";
 
         if (termFall.isSelected() && termSpring.isSelected()) {
             term = "full_year";
@@ -100,7 +112,14 @@ public class StudentPageController {
         }
 
         String uniName = universityList.getValue();
-        System.out.println(uniName);
+        int uni_id = Database.getUniversityId(uniName);
+
+        ApplicationModel newApp = new ApplicationModel();
+        newApp.setUniversityId(uni_id);
+        newApp.setStudentID(LoginController.studentInfo.getStdID());
+        newApp.setTerm(term);
+        newApp.setPriority(Database.getNextPriority(LoginController.studentInfo.getStdID()));
+        Database.insertApplication(newApp);
     }
 
 
@@ -133,7 +152,8 @@ public class StudentPageController {
     @FXML
     private void applicationsTabPressed(){
         applicationTable.getItems().clear();
-        ArrayList<ApplicationModel> applications = Database.getApplicationsOfStudent(LoginController.studentInfo.getStdID());
+        ArrayList<ApplicationModel> applications =
+                Database.getApplicationsOfStudent(LoginController.studentInfo.getStdID());
         applicationTable.getItems().addAll(applications);
     }
 
@@ -142,7 +162,7 @@ public class StudentPageController {
         int goner = applicationTable.getSelectionModel().getSelectedItem().getAppID();
         Database.deleteApplication(goner);
         applicationTable.getItems().clear();
-        ArrayList<ApplicationModel> applications = Database.getApplicationsInfo();
+        ArrayList<ApplicationModel> applications = Database.getApplicationsOfStudent(LoginController.studentInfo.getStdID());
         applicationTable.getItems().addAll(applications);
     }
 }

@@ -27,13 +27,13 @@ VARCHAR(20), app_id INTEGER);
 
 --DROP FUNCTION place_students();
 CREATE OR REPLACE FUNCTION place_students()
-RETURNS PLACEMENT_RESULT_TYPE[]
+RETURNS TABLE(std_id INTEGER, target_uni_id INTEGER, term VARCHAR(20), app_id INTEGER)
 AS $$
 DECLARE
     application_curs CURSOR FOR SELECT
                                     s.std_id,
-                                    target_uni_id,
-                                    term,
+                                    a.target_uni_id,
+                                    a.term,
                                     a.application_id
                                 FROM
                                     applications AS a
@@ -50,10 +50,16 @@ DECLARE
     uni_spring_count INTEGER;
     uni_capacity INTEGER;
     old_std_id INTEGER;
-    i INTEGER;
-    placed_students PLACEMENT_RESULT_TYPE[];
+--     i INTEGER;
+--     placed_students PLACEMENT_RESULT_TYPE[];
 BEGIN
-    i = 1;
+    CREATE TEMP TABLE IF NOT EXISTS placed_students(
+        std_id INTEGER,
+        target_uni_id INTEGER,
+        term VARCHAR(20),
+        app_id INTEGER
+    ) ON COMMIT DROP;
+--     i = 1;
     open application_curs;
     FETCH NEXT FROM application_curs INTO placement_result;
     WHILE placement_result IS NOT NULL LOOP
@@ -70,8 +76,10 @@ BEGIN
                                                                                                   uni_id = placement_result.target_uni_id;
                     UPDATE applications SET result = true WHERE application_id = placement_result
                         .app_id;
-                    placed_students[i] = placement_result;
-                    i = i + 1;
+                    INSERT INTO placed_students VALUES(placement_result.std_id, placement_result
+                        .target_uni_id, placement_result.term, placement_result.app_id);
+--                     placed_students[i] = placement_result;
+--                     i = i + 1;
                     FETCH NEXT FROM application_curs INTO placement_result;
                     WHILE placement_result.std_id = old_std_id LOOP
                             FETCH NEXT FROM application_curs INTO placement_result;
@@ -89,8 +97,10 @@ BEGIN
                             uni_id = placement_result.target_uni_id;
                     UPDATE applications SET result = true WHERE application_id = placement_result
                         .app_id;
-                    placed_students[i] = placement_result;
-                    i = i + 1;
+                    INSERT INTO placed_students VALUES(placement_result.std_id, placement_result
+                        .target_uni_id, placement_result.term, placement_result.app_id);
+--                     placed_students[i] = placement_result;
+--                     i = i + 1;
                     FETCH NEXT FROM application_curs INTO placement_result;
                     WHILE placement_result.std_id = old_std_id LOOP
                             FETCH NEXT FROM application_curs INTO placement_result;
@@ -109,8 +119,10 @@ BEGIN
                             uni_id = placement_result.target_uni_id;
                     UPDATE applications SET result = true WHERE application_id = placement_result
                         .app_id;
-                    placed_students[i] = placement_result;
-                    i = i + 1;
+                    INSERT INTO placed_students VALUES(placement_result.std_id, placement_result
+                        .target_uni_id, placement_result.term, placement_result.app_id);
+--                     placed_students[i] = placement_result;
+--                     i = i + 1;
                     FETCH NEXT FROM application_curs INTO placement_result;
                     WHILE placement_result.std_id = old_std_id LOOP
                             FETCH NEXT FROM application_curs INTO placement_result;
@@ -124,7 +136,7 @@ BEGIN
 --     FOR row IN placed_students LOOP
 --         RAISE NOTICE 'row: %', row;
 --     END LOOP;
-    RAISE NOTICE 'row: %', placed_students[6];
-    RETURN placed_students;
+--     RAISE NOTICE 'row: %', placed_students[6];
+    RETURN QUERY SELECT * FROM placed_students;
 END;
 $$ Language 'plpgsql';

@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS students (
     exam_result integer CHECK (exam_result > 0),
     GPA numeric(3, 2) CHECK (GPA > 2.5),
     department varchar(50),
-    consultant_id integer,
-    fname         varchar(50) NOT NULL,
-    lname         varchar(50) NOT NULL
+    consultant_id integer DEFAULT NULL,
+    fname varchar(50) NOT NULL,
+    lname varchar(50) NOT NULL
 );
 
 --Sequence
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS applications
     std_id         integer,
     target_uni_id  integer,
     priority       integer NOT NULL,
-    fund           float CHECK (fund BETWEEN 0 AND 400),
-    result         boolean,
+    fund           float CHECK (fund BETWEEN 200 AND 400),
+    result         boolean DEFAULT false,
     term           varchar(20) CHECK (term IN ('fall', 'spring', 'full_year')),
     UNIQUE (std_id, target_uni_id, term)
 );

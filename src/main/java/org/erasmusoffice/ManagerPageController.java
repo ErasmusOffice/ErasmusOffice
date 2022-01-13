@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
@@ -65,8 +64,52 @@ public class ManagerPageController {
     private Tab applicationsTab;
 
     @FXML
+    private TextField studentId;
+
+    @FXML
     private Button placeButton;
 
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private TableView<ApprovedApplication> placementTable;
+    @FXML
+    private TableColumn<ApprovedApplication, Integer> placeStudentId;
+    @FXML
+    private TableColumn<ApprovedApplication, String> placeStudentName;
+    @FXML
+    private TableColumn<ApprovedApplication, String> placeCountry;
+    @FXML
+    private TableColumn<ApprovedApplication, String> placeUniversityName;
+    @FXML
+    private TableColumn<ApprovedApplication, String> placeTerm;
+
+    @FXML
+    private TextField fname;
+    @FXML
+    private TextField lname;
+    @FXML
+    private TextField gpa;
+    @FXML
+    private TextField examResult;
+    @FXML
+    private CheckBox termFall;
+    @FXML
+    private CheckBox termSpring;
+    @FXML
+    private ComboBox<String> universityList;
+
+    @FXML
+    private Button apply;
+
+    @FXML
+    private Label managerName;
+
+    @FXML
+    public static Integer applicationId;
+
+    private Student student;
     @FXML
     public void initialize() {
         WebEngine webEngine = browser.getEngine();
@@ -78,11 +121,26 @@ public class ManagerPageController {
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));
         term.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("term"));
         result.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("resultString"));
+
+        placeStudentId.setCellValueFactory(new PropertyValueFactory<ApprovedApplication, Integer>("std_id"));
+        placeStudentName.setCellValueFactory(new PropertyValueFactory<ApprovedApplication, String>("std_name"));
+        placeCountry.setCellValueFactory(new PropertyValueFactory<ApprovedApplication, String>("country"));
+        placeUniversityName.setCellValueFactory(new PropertyValueFactory<ApprovedApplication, String>("uni_name"));
+        placeTerm.setCellValueFactory(new PropertyValueFactory<ApprovedApplication, String>("term"));
+
+        managerName.setText(LoginController.staffRole);
     }
 
     @FXML
     public void showPopUp() {
         try {
+            if(applicationTable.getSelectionModel().getSelectedItem() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a application from the table",
+                        ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            applicationId = applicationTable.getSelectionModel().getSelectedItem().getAppID();
             Parent root1 = App.loadFXML("UpdatePopUp");
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -121,7 +179,11 @@ public class ManagerPageController {
                                     ObservableValue<String>>() {
                                 public ObservableValue<String> call(
                                         TableColumn.CellDataFeatures<ObservableList, String> param) {
-                                    return new SimpleStringProperty(param.getValue().get(j).toString());
+                                    if(param.getValue().get(j) != null){
+                                        return new SimpleStringProperty(param.getValue().get(j).toString());
+                                    }else{
+                                        return new SimpleStringProperty("-1");
+                                    }
                                 }
                             });
 
@@ -174,6 +236,50 @@ public class ManagerPageController {
 
     @FXML
     private void placeButtonPressed(){
-        Database.placeStudents();
+        ArrayList<Integer> appIds = Database.placeStudents();
+        ArrayList<ApprovedApplication> applications = Database.showApprovedApplications(appIds);
+        placementTable.getItems().clear();
+        placementTable.getItems().addAll(applications);
+    }
+
+    @FXML
+    private void searchButtonPressed(){
+        Student student = Database.getStudentInfo(Integer.parseInt(studentId.getText()));
+        this.student = student;
+        if(student != null) {
+            fname.setText(student.getFname());
+            lname.setText(student.getLname());
+            gpa.setText(String.valueOf(student.getGPA()));
+            examResult.setText(String.valueOf(student.getExamResult()));
+        }
+    }
+
+    @FXML
+    public void universityCombo(Event event) {
+        ObservableList<String> observableNames = FXCollections.observableList(Database.getUniversities());
+        universityList.setItems(observableNames);
+    }
+
+    @FXML
+    public void applyButtonPressed(Event event) {
+        String term = "";
+
+        if (termFall.isSelected() && termSpring.isSelected()) {
+            term = "full_year";
+        } else if (termFall.isSelected() && !termSpring.isSelected()) {
+            term = "fall";
+        } else if (!termFall.isSelected() && termSpring.isSelected()) {
+            term = "spring";
+        }
+
+        String uniName = universityList.getValue();
+        int uni_id = Database.getUniversityId(uniName);
+
+        ApplicationModel newApp = new ApplicationModel();
+        newApp.setUniversityId(uni_id);
+        newApp.setStudentID(student.getStdID());
+        newApp.setTerm(term);
+        newApp.setPriority(Database.getNextPriority(student.getStdID()));
+        Database.insertApplication(newApp);
     }
 }

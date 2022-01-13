@@ -27,20 +27,20 @@
          </rowConstraints>
          <children>
             <Label styleClass="attribute" text="University:" GridPane.rowIndex="2" />
-            <ComboBox prefHeight="25.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="universityList" onMousePressed="#universityCombo" prefHeight="25.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label styleClass="attribute" text="Term:" GridPane.rowIndex="1" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <CheckBox layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Fall" />
-                  <CheckBox layoutX="164.0" layoutY="21.0" mnemonicParsing="false" text="Spring" />
+                  <CheckBox fx:id="termFall" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Fall" />
+                  <CheckBox fx:id="termSpring" layoutX="164.0" layoutY="21.0" mnemonicParsing="false" text="Spring" />
                </children>
             </Pane>
-            <Label styleClass="attribute" text="Term:" />
-            <Label styleClass="attribute" text="ApplicationId" GridPane.columnIndex="1" />
+            <Label styleClass="attribute" text="ApplicationId:" />
+            <Label fx:id="appID" styleClass="attribute" text="ApplicationId" GridPane.columnIndex="1" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="89.0" text="Update" />
-                  <Button layoutX="148.0" layoutY="13.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="89.0" text="Delete" />
+                  <Button fx:id="updateButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onMousePressed="#updateApplication" prefHeight="47.0" prefWidth="89.0" text="Update" />
+                  <Button fx:id="deleteButton" layoutX="148.0" layoutY="13.0" mnemonicParsing="false" onMousePressed="#deleteApplication" prefHeight="47.0" prefWidth="89.0" text="Delete" />
                </children>
             </Pane>
          </children>

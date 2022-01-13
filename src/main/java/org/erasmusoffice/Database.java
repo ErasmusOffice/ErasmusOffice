@@ -5,6 +5,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+
 import org.apache.ibatis.jdbc.ScriptRunner;
 
 public class Database {
@@ -117,24 +120,6 @@ public class Database {
             System.out.println("error: Could not run the query.");
             e.printStackTrace();
         }
-    }
-
-    public static String getUniId(String name) {
-        String query = "Select uni_id From universities where name = ?";
-        String uniID = null;
-        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
-                conn.prepareStatement(query)) {
-            pstmt.setString(1, name);
-            ResultSet r = pstmt.executeQuery();
-            if (r.next()) {
-                uniID = r.getString(1);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("error: Could not run the query.");
-            e.printStackTrace();
-        }
-        return uniID;
     }
 
     public static int getPriority(int id) {
@@ -330,19 +315,151 @@ public class Database {
         }
     }
 
-    public static void placeStudents(){
+    public static ArrayList<Integer> placeStudents() {
         String sql = "SELECT * FROM place_students()";
-
+        ArrayList<Integer> app_ids = new ArrayList<>();
         try (Connection conn = connectToDatabase(dbAdmin, dbPassword); Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            System.out.println(rs.getArray(rs.getRow()));
-            System.out.println(rs.getArray(rs.getRow()));
-//            while(rs.next()){
-//                System.out.println(rs.);
-//            }
+            //            System.out.println(rs.getArray(rs.getRow()));
+            //            System.out.println(rs.getArray(rs.getRow()));
+            while (rs.next()) {
+                app_ids.add(rs.getInt("app_id"));
+            }
+            return app_ids;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<ApprovedApplication> showApprovedApplications(ArrayList<Integer> app_ids) {
+        String sql = "SELECT applications.std_id, fname, country, name, term FROM applications INNER JOIN students ON" +
+                " " +
+                "applications.std_id = students.std_id INNER JOIN universities u on applications.target_uni_id = u" +
+                ".uni_id WHERE application_id = ?";
+        ArrayList<ApprovedApplication> approvedApplications = new ArrayList<>();
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(sql)) {
+            for (Integer app_id : app_ids) {
+                pstmt.setInt(1, app_id);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    ApprovedApplication newApp = new ApprovedApplication();
+                    newApp.setStd_id(rs.getInt("std_id"));
+                    newApp.setCountry(rs.getString("country"));
+                    newApp.setTerm(rs.getString("term"));
+                    newApp.setStd_name(rs.getString("fname"));
+                    newApp.setUni_name(rs.getString("name"));
+                    approvedApplications.add(newApp);
+                }
+            }
+
+            return approvedApplications;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Integer getUniversityId(String uni_name) {
+        String sql = "SELECT uni_id FROM universities WHERE name = ? ";
+        int uni_id;
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, uni_name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                uni_id = rs.getInt("uni_id");
+                return uni_id;
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Integer getNextPriority(int std_id) {
+        String sql = "SELECT max(priority) as priority FROM applications WHERE std_id = ?";
+        Integer next_priority;
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, std_id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                next_priority = rs.getInt("priority");
+                return next_priority + 1;
+            }
+            return 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void insertApplication(ApplicationModel application) {
+        String sql = "INSERT INTO applications(std_id, target_uni_id, priority, fund, term) VALUES (?, ?, ?, " +
+                "?, ?)";
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, application.getStudentID());
+            pstmt.setInt(2, application.getUniversityId());
+            pstmt.setInt(3, application.getPriority());
+            pstmt.setFloat(4, application.getFund());
+            pstmt.setString(5, application.getTerm());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert;
+            if (e.getSQLState().equals("23505")) {
+                alert = new Alert(Alert.AlertType.ERROR, "You've already registered to this university for this term",
+                        ButtonType.OK);
+                alert.showAndWait();
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR, "You reached the maximum number of applications.\nPlease " +
+                        "delete to be able to add new applications.",
+                        ButtonType.OK);
+                alert.showAndWait();
+            }
+        }
+    }
+
+    public static Student getStudentInfo(int std_id) {
+        String sql = "SELECT * FROM students WHERE std_id = ?";
+        Student student = new Student();
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, std_id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                student.setStdID(rs.getInt("std_id"));
+                student.setFname(rs.getString("fname"));
+                student.setLname(rs.getString("lname"));
+                student.setExamResult(rs.getInt("exam_result"));
+                student.setGPA(rs.getDouble("GPA"));
+                return student;
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not found student.",
+                    ButtonType.OK);
+            return null;
+        }
+    }
+
+    public static void updateApplication(int applicationID, String term, String universityName) {
+            String sql = "UPDATE applications SET term = ?, target_uni_id = ? WHERE application_id = ?";
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, term);
+            pstmt.setInt(2, Database.getUniversityId(universityName));
+            pstmt.setInt(3, applicationID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "The application already exist",
+                    ButtonType.OK);
+            alert.showAndWait();
         }
     }
 }
