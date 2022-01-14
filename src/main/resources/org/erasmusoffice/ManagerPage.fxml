@@ -21,14 +21,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1060.0" stylesheets="@../../Style/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erasmusoffice.ManagerPageController">
    <children>
-      <Pane layoutY="14.0" prefHeight="98.0" prefWidth="1060.0" styleClass="top-pane-image" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="2.0" layoutY="-70.0" onMouseDragged="#panedraged" onMousePressed="#panepressed" prefHeight="170.0" prefWidth="1060.0" styleClass="top-pane-image" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-71.0">
          <children>
-            <Label layoutX="73.0" layoutY="17.0" prefHeight="66.0" prefWidth="557.0" styleClass="top-label" text="Yildiz Technical University">
+            <Label layoutX="73.0" layoutY="90.0" prefHeight="66.0" prefWidth="557.0" styleClass="top-label" text="Yildiz Technical University">
                <font>
                   <Font size="45.0" />
                </font>
             </Label>
-            <Label fx:id="closeButton" alignment="CENTER" layoutX="1037.0" layoutY="2.0" onMousePressed="#closeScreen" prefHeight="23.0" prefWidth="18.0" text="X" textFill="WHITE">
+            <Label fx:id="closeButton" alignment="CENTER" layoutX="1037.0" layoutY="75.0" onMousePressed="#closeScreen" prefHeight="23.0" prefWidth="18.0" text="X" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -36,13 +36,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="638.0" layoutY="17.0" styleClass="top-label" text="-">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="638.0" layoutY="90.0" styleClass="top-label" text="-">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
             </Label>
-            <Label fx:id="managerName" layoutX="668.0" layoutY="16.0" prefHeight="66.0" prefWidth="327.0" styleClass="top-label" text="Manager Name">
+            <Label fx:id="managerName" layoutX="668.0" layoutY="89.0" prefHeight="66.0" prefWidth="327.0" styleClass="top-label" text="Manager Name">
                <font>
                   <Font size="45.0" />
                </font>

@@ -3,10 +3,14 @@ package org.erasmusoffice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -75,6 +79,14 @@ public class StudentPageController {
     private Label studentNameLabel;
 
     @FXML
+    private AnchorPane anchorPane;
+
+    private Stage stage;
+
+    private double xOffset;
+    private double yOffset;
+
+    @FXML
     public void initialize() {
         Database.dbPassword = "0000";
         Database.dbAdmin = "student";
@@ -97,6 +109,23 @@ public class StudentPageController {
         lname.setText(LoginController.studentInfo.getLname());
         gpa.setText(String.valueOf(LoginController.studentInfo.getGPA()));
         examResult.setText(String.valueOf(LoginController.studentInfo.getExamResult()));
+
+        Stage stage = App.primaryStage;
+        Parent root = studentNameLabel.getParent().getParent();
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = stage.getX() - event.getScreenX();
+                yOffset = stage.getY() - event.getScreenY();
+            }
+        });
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() + xOffset);
+                stage.setY(event.getScreenY() + yOffset);
+            }
+        });
     }
 
     @FXML
@@ -120,6 +149,8 @@ public class StudentPageController {
         newApp.setTerm(term);
         newApp.setPriority(Database.getNextPriority(LoginController.studentInfo.getStdID()));
         Database.insertApplication(newApp);
+
+
     }
 
 
@@ -164,5 +195,22 @@ public class StudentPageController {
         applicationTable.getItems().clear();
         ArrayList<ApplicationModel> applications = Database.getApplicationsOfStudent(LoginController.studentInfo.getStdID());
         applicationTable.getItems().addAll(applications);
+    }
+
+    public void panepressed(MouseEvent me)
+    {
+        stage = (Stage)((Node)me.getSource()).getScene().getWindow();
+        xOffset= stage.getX()- me.getScreenX();
+        yOffset= stage.getY()- me.getScreenY();
+
+
+    }
+    public void panedraged(MouseEvent me)
+    {
+        stage = (Stage)((Node)me.getSource()).getScene().getWindow();
+        stage.setX(xOffset+me.getScreenX());
+        stage.setY(yOffset+me.getScreenY());
+
+
     }
 }

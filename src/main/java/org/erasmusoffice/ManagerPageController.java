@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -112,11 +113,17 @@ public class ManagerPageController {
     @FXML
     private Tab manuelQueryTab;
 
+    private Stage stage;
+
+    private double xOffset;
+    private double yOffset;
+
     private Student student;
     @FXML
     public void initialize() {
         Database.dbAdmin = LoginController.staffRole;
         Database.dbPassword = "0000";
+        System.out.println(LoginController.staffRole);
         manuelQueryTab.setDisable(!LoginController.staffRole.equals("it_staff"));
 
         WebEngine webEngine = browser.getEngine();
@@ -288,5 +295,22 @@ public class ManagerPageController {
         newApp.setTerm(term);
         newApp.setPriority(Database.getNextPriority(student.getStdID()));
         Database.insertApplication(newApp);
+    }
+
+    public void panepressed(MouseEvent me)
+    {
+        stage = (Stage)((Node)me.getSource()).getScene().getWindow();
+        xOffset= stage.getX()- me.getScreenX();
+        yOffset= stage.getY()- me.getScreenY();
+
+
+    }
+    public void panedraged(MouseEvent me)
+    {
+        stage = (Stage)((Node)me.getSource()).getScene().getWindow();
+        stage.setX(xOffset+me.getScreenX());
+        stage.setY(yOffset+me.getScreenY());
+
+
     }
 }

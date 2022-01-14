@@ -19,12 +19,18 @@ public class App extends Application {
     private static Scene scene;
     private double xOffset;
     private double yOffset;
+    public static Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
+        primaryStage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
-        Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+//        Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+        Parent root = loader.load(getClass().getResource("LoginView.fxml"));
         scene = new Scene(root);
+//        StudentPageController stdController = loader.<StudentPageController>getController();
+//        stdController.registerStage(stage);
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
