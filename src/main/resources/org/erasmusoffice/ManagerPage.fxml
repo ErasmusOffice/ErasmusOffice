@@ -51,7 +51,7 @@
       </Pane>
       <TabPane layoutY="93.0" prefHeight="656.0" prefWidth="1060.0" styleClass="tab-panel" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="93.0">
         <tabs>
-          <Tab text="Add an Application">
+          <Tab fx:id="makeAnApplication" text="Add an Application">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -138,20 +138,20 @@
                         </Pane>
                         <Pane layoutX="15.0" layoutY="456.0" prefHeight="84.0" prefWidth="425.0" styleClass="front-pane">
                            <children>
-                              <TextField fx:id="filterStudentIdField" layoutX="145.0" layoutY="21.0" prefHeight="29.0" prefWidth="196.0" />
-                              <Label layoutX="6.0" layoutY="28.0" styleClass="attribute" text="Student ID: " textFill="WHITE" />
-                              <Button fx:id="filterButton" layoutX="350.0" layoutY="20.0" mnemonicParsing="false" onMousePressed="#filterApplicationsByStdId" prefHeight="43.0" prefWidth="64.0" text="Filter">
+                              <TextField fx:id="filterStudentIdField" layoutX="205.0" layoutY="23.0" prefHeight="16.0" prefWidth="136.0" />
+                              <Button fx:id="filterButton" layoutX="350.0" layoutY="24.0" mnemonicParsing="false" onMousePressed="#filterButtonPressed" prefHeight="39.0" prefWidth="64.0" text="Filter">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Button>
+                              <ComboBox fx:id="selectSearchFilter" layoutX="14.0" layoutY="25.0" prefHeight="38.0" prefWidth="180.0" />
                            </children>
                         </Pane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Placement Results">
+            <Tab fx:id="placementResults" text="Placement Results">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

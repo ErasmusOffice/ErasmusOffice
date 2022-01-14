@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS foreign_students
 (
     foreign_std_id integer PRIMARY KEY,
     department     varchar(50),
-    consultant_id  integer,
     fname          varchar(50) NOT NULL,
     lname          varchar(50) NOT NULL,
     src_uni_id     integer     NOT NULL
@@ -91,9 +90,6 @@ ALTER TABLE applications
 
 ALTER TABLE applications
     ADD FOREIGN KEY (target_uni_id) REFERENCES universities (uni_id) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE foreign_students
-    ADD FOREIGN KEY (consultant_id) REFERENCES consultants (consultant_id) ON DELETE SET NULL ON UPDATE CASCADE;
 
 ALTER TABLE foreign_students
     ADD FOREIGN KEY (src_uni_id) REFERENCES universities (uni_id) ON DELETE SET NULL ON UPDATE CASCADE;

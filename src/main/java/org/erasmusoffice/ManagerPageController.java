@@ -62,7 +62,16 @@ public class ManagerPageController {
     private TableColumn<ApplicationModel, String> result;
 
     @FXML
+    private ComboBox<String> selectSearchFilter;
+
+    @FXML
     private Tab applicationsTab;
+
+    @FXML
+    private Tab placementResults;
+
+    @FXML
+    private Tab makeAnApplication;
 
     @FXML
     private TextField studentId;
@@ -125,6 +134,9 @@ public class ManagerPageController {
         Database.dbPassword = "0000";
         System.out.println(LoginController.staffRole);
         manuelQueryTab.setDisable(!LoginController.staffRole.equals("it_staff"));
+        applicationsTab.setDisable(LoginController.staffRole.equals("it_staff"));
+        placementResults.setDisable(LoginController.staffRole.equals("it_staff"));
+        makeAnApplication.setDisable(LoginController.staffRole.equals("it_staff"));
 
         WebEngine webEngine = browser.getEngine();
 //        webEngine.load("https://www.google.com");
@@ -143,6 +155,8 @@ public class ManagerPageController {
         placeTerm.setCellValueFactory(new PropertyValueFactory<ApprovedApplication, String>("term"));
 
         managerName.setText(LoginController.staffRole);
+        selectSearchFilter.getItems().add("StudentID");
+        selectSearchFilter.getItems().add("University Name");
     }
 
     @FXML
@@ -224,7 +238,6 @@ public class ManagerPageController {
         }
     }
 
-    @FXML
     public void filterApplicationsByStdId() {
         try {
             int student_id = Integer.parseInt(filterStudentIdField.getText());
@@ -241,6 +254,35 @@ public class ManagerPageController {
         }
     }
 
+    @FXML
+    public void filterApplicationsByUniName(){
+        try {
+            String uni_name = filterStudentIdField.getText();
+
+            applicationTable.getItems().clear();
+            ArrayList<ApplicationModel> applications = Database.getApplicationsOfStudentByUniversity(uni_name);
+            applicationTable.getItems().addAll(applications);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("University name formatted poorly!");
+            alert.setContentText("Enter a String.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void filterButtonPressed(){
+        if(selectSearchFilter.getValue().equals("StudentID")){
+            filterApplicationsByStdId();
+        }else if(selectSearchFilter.getValue().equals("University Name")){
+            filterApplicationsByUniName();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a search filter type from the list",
+                    ButtonType.OK);
+            alert.showAndWait();
+        }
+    }
     @FXML
     private void applicationsTabPressed(){
         applicationTable.getItems().clear();

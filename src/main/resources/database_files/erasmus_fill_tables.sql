@@ -44,18 +44,18 @@ values
 
 
 /* INSERTING FOREIGN STUDENTS */
-insert into foreign_students (foreign_std_id, department, consultant_id, fname, lname, src_uni_id)
+insert into foreign_students (foreign_std_id, department, fname, lname, src_uni_id)
 values
-       (1, 'Chemistry', 3, 'Julien', 'Davenport', 4),
-       (2, 'History', 5, 'Nyah', 'Becker', 1),
-       (3, 'Biology', 2, 'Tonicha', 'Glenn', 3),
-       (4, 'Medicine', 1, 'Pearce', 'Sanderson', 2),
-       (5, 'Electrical Engineering', 4, 'Jeevan', 'Leon', 8),
-       (6, 'General Business', 7, 'Marcelina', 'Clayton', 7),
-       (7, 'Marketing and Management', 8, 'Samira', 'Mora', 5),
-       (8, 'Computer Science', 6, 'Ibrahim', 'Bate', 6),
-       (9, 'Mathematics', 10, 'Carlos', 'Lynn', 10),
-       (10, 'Linguistics', 9, 'Danniella', 'Matthams', 9);
+       (1, 'Chemistry', 'Julien', 'Davenport', 4),
+       (2, 'History', 'Nyah', 'Becker', 1),
+       (3, 'Biology', 'Tonicha', 'Glenn', 3),
+       (4, 'Medicine', 'Pearce', 'Sanderson', 2),
+       (5, 'Electrical Engineering', 'Jeevan', 'Leon', 8),
+       (6, 'General Business', 'Marcelina', 'Clayton', 7),
+       (7, 'Marketing and Management', 'Samira', 'Mora', 5),
+       (8, 'Computer Science', 'Ibrahim', 'Bate', 6),
+       (9, 'Mathematics', 'Carlos', 'Lynn', 10),
+       (10, 'Linguistics', 'Danniella', 'Matthams', 9);
 
 
 /* INSERTING APPLICATIONS */

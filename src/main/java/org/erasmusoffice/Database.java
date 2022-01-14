@@ -255,6 +255,31 @@ public class Database {
         }
     }
 
+    public static ArrayList<ApplicationModel> getApplicationsOfStudentByUniversity(String uni_name) {
+        String sql = "select * from manager_get_applications_by_university(?)";
+        try (Connection conn = connectToDatabase(dbAdmin, dbPassword); PreparedStatement pstmt =
+                conn.prepareStatement(sql)) {
+            ArrayList<ApplicationModel> applications = new ArrayList<>();
+
+            pstmt.setString(1, uni_name.toLowerCase());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ApplicationModel application = new ApplicationModel();
+                application.setAppID(rs.getInt(1));
+                application.setStudentID(rs.getInt(2));
+                application.setUniversityName(rs.getString(3));
+                application.setTerm(rs.getString(4));
+                application.setResult(rs.getBoolean(5));
+                applications.add(application);
+                System.out.println("appId " + application.getAppID());
+            }
+            return applications;
+        } catch (SQLException e) {
+            System.out.println("error: Could not run the query.");
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     public static ArrayList<UniversityModel> getUniversitiesInfo() {

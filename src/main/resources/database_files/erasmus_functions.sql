@@ -19,13 +19,28 @@ END;
 $$
     LANGUAGE 'plpgsql';
 
-SELECT * from manager_get_applications(3);
+CREATE OR REPLACE FUNCTION manager_get_applications_by_university(universityName VARCHAR(20))
+    RETURNS table(application_id int, std_id int, name varchar(50), term varchar(20), result bool)
+AS
+$$
+BEGIN
+    return query
+        SELECT a.application_id,
+               a.std_id,
+               u.name,
+               a.term,
+               a.result
+        FROM applications AS a
+                 INNER JOIN universities u ON a.target_uni_id = u.uni_id
+        WHERE lower(u.name) LIKE '%' || universityName || '%';
+END;
+$$
+    LANGUAGE 'plpgsql';
 
 DROP TYPE IF EXISTS placement_result_type CASCADE ;
 CREATE TYPE placement_result_type AS (std_id INTEGER, target_uni_id INTEGER, term
 VARCHAR(20), app_id INTEGER);
 
---DROP FUNCTION place_students();
 CREATE OR REPLACE FUNCTION place_students()
 RETURNS TABLE(std_id INTEGER, target_uni_id INTEGER, term VARCHAR(20), app_id INTEGER)
 AS $$
@@ -50,8 +65,6 @@ DECLARE
     uni_spring_count INTEGER;
     uni_capacity INTEGER;
     old_std_id INTEGER;
---     i INTEGER;
---     placed_students PLACEMENT_RESULT_TYPE[];
 BEGIN
     CREATE TEMP TABLE IF NOT EXISTS placed_students(
         std_id INTEGER,
@@ -59,7 +72,6 @@ BEGIN
         term VARCHAR(20),
         app_id INTEGER
     ) ON COMMIT DROP;
---     i = 1;
     open application_curs;
     FETCH NEXT FROM application_curs INTO placement_result;
     WHILE placement_result IS NOT NULL LOOP
@@ -78,8 +90,6 @@ BEGIN
                         .app_id;
                     INSERT INTO placed_students VALUES(placement_result.std_id, placement_result
                         .target_uni_id, placement_result.term, placement_result.app_id);
---                     placed_students[i] = placement_result;
---                     i = i + 1;
                     FETCH NEXT FROM application_curs INTO placement_result;
                     WHILE placement_result.std_id = old_std_id LOOP
                             FETCH NEXT FROM application_curs INTO placement_result;
@@ -99,8 +109,6 @@ BEGIN
                         .app_id;
                     INSERT INTO placed_students VALUES(placement_result.std_id, placement_result
                         .target_uni_id, placement_result.term, placement_result.app_id);
---                     placed_students[i] = placement_result;
---                     i = i + 1;
                     FETCH NEXT FROM application_curs INTO placement_result;
                     WHILE placement_result.std_id = old_std_id LOOP
                             FETCH NEXT FROM application_curs INTO placement_result;
@@ -121,8 +129,6 @@ BEGIN
                         .app_id;
                     INSERT INTO placed_students VALUES(placement_result.std_id, placement_result
                         .target_uni_id, placement_result.term, placement_result.app_id);
---                     placed_students[i] = placement_result;
---                     i = i + 1;
                     FETCH NEXT FROM application_curs INTO placement_result;
                     WHILE placement_result.std_id = old_std_id LOOP
                             FETCH NEXT FROM application_curs INTO placement_result;
@@ -133,10 +139,6 @@ BEGIN
         END CASE;
     end loop;
     close application_curs;
---     FOR row IN placed_students LOOP
---         RAISE NOTICE 'row: %', row;
---     END LOOP;
---     RAISE NOTICE 'row: %', placed_students[6];
     RETURN QUERY SELECT * FROM placed_students;
 END;
 $$ Language 'plpgsql';
