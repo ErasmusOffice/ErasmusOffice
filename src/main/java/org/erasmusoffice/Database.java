@@ -14,8 +14,8 @@ public class Database {
     public final static int MAX_DAYS_TO_RETURN = 20;
 
     private static final String dbUrl = "jdbc:postgresql://localhost:5432/erasmus_db";
-    private static final String dbAdmin = "manager";
-    private static final String dbPassword = "0000";
+    public static String dbAdmin = "manager";
+    public static String dbPassword = "0000";
 
 
     public static void main(String[] args) throws SQLException {
@@ -26,6 +26,8 @@ public class Database {
         file = new File("src/main/resources/database_files/erasmus_functions.sql");
         importSqlQuery(file);
         file = new File("src/main/resources/database_files/trigger.sql");
+        importSqlQuery(file);
+        file = new File("src/main/resources/database_files/privileges.sql");
         importSqlQuery(file);
         testDb();
         System.out.println("-Database.java main terminated successfully-");

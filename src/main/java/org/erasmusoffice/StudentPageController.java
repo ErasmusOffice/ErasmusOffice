@@ -16,9 +16,6 @@ public class StudentPageController {
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }*/
-    private static final String dbUrl = "jdbc:postgresql://localhost:5432/erasmus_db";
-    private static final String dbAdmin = "student";
-    private static final String dbPassword = "0000";
 
     @FXML
     private Label closeButton;
@@ -79,6 +76,9 @@ public class StudentPageController {
 
     @FXML
     public void initialize() {
+        Database.dbPassword = "0000";
+        Database.dbAdmin = "student";
+
         appId.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("appID"));
         studentID.setCellValueFactory(new PropertyValueFactory<ApplicationModel, Integer>("studentID"));
         universityName.setCellValueFactory(new PropertyValueFactory<ApplicationModel, String>("universityName"));

@@ -109,9 +109,16 @@ public class ManagerPageController {
     @FXML
     public static Integer applicationId;
 
+    @FXML
+    private Tab manuelQueryTab;
+
     private Student student;
     @FXML
     public void initialize() {
+        Database.dbAdmin = LoginController.staffRole;
+        Database.dbPassword = "0000";
+        manuelQueryTab.setDisable(!LoginController.staffRole.equals("it_staff"));
+
         WebEngine webEngine = browser.getEngine();
 //        webEngine.load("https://www.google.com");
         webEngine.load(getClass().getResource("/ace/editor.html").toExternalForm());
@@ -204,7 +211,7 @@ public class ManagerPageController {
 
         } catch (SQLException e) {
             System.out.println("error: Could not run the query.");
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Query", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             alert.showAndWait();
             e.printStackTrace();
         }
