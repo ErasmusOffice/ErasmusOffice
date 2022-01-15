@@ -17,29 +17,29 @@ values
 insert into students (std_id, password, exam_result, gpa, department, fname, lname)
 values
        (1, '0001', 80, 2.8, 'Biology', 'Yuksel', 'Altin'),
-       (2, '0002', 90, 2.8, 'Chemistry', 'Alpay', 'Dereli'),
-       (3, '0003', 70, 2.8, 'Electrical Engineering', 'Ersoy', 'Karakus'),
-       (4, '0004', 85, 2.8, 'History', 'Toprak', 'Isler'),
-       (5, '0005', 95, 2.8, 'Computer Science', 'Kudret', 'Dincer'),
-       (6, '0006', 70, 2.8, 'General Business', 'Leyla', 'Tansu'),
-       (7, '0007', 95, 2.8, 'Marketing and Management', 'Berna', 'Yavuz'),
-       (8, '0008', 85, 2.8, 'Linguistics', 'Varol', 'Caglayan'),
-       (9, '0009', 85, 2.8, 'Medicine', 'Erdem', 'Karaca'),
-       (10, '0010', 75, 2.8, 'Mathematics', 'Aydiner', 'Sisli');
+       (2, '0002', 90, 2.6, 'Chemistry', 'Alpay', 'Dereli'),
+       (3, '0003', 70, 2.7, 'Electrical Engineering', 'Ersoy', 'Karakus'),
+       (4, '0004', 85, 3.2, 'History', 'Toprak', 'Isler'),
+       (5, '0005', 95, 3.3, 'Computer Science', 'Kudret', 'Dincer'),
+       (6, '0006', 70, 3.8, 'General Business', 'Leyla', 'Tansu'),
+       (7, '0007', 95, 3.5, 'Marketing and Management', 'Berna', 'Yavuz'),
+       (8, '0008', 85, 2.9, 'Linguistics', 'Varol', 'Caglayan'),
+       (9, '0009', 85, 3.0, 'Medicine', 'Erdem', 'Karaca'),
+       (10, '0010', 75, 3.4, 'Mathematics', 'Aydiner', 'Sisli');
 
 
 /* INSERTING UNIVERSITIES */
 insert into universities (uni_id, country, name, capacity, fall_applicant_count, spring_applicant_count)
 values
-(1, 'Portugal', 'Universidade de Coimbra', 5, 1, 0),
-(2, 'United Kingdom', 'University of Kent', 10, 0, 1),
-(3, 'Spain', 'Universidad de Salamanca', 35, 1, 0),
+(1, 'Portugal', 'Universidade de Coimbra', 5, 0, 0),
+(2, 'United Kingdom', 'University of Kent', 10, 0, 0),
+(3, 'Spain', 'Universidad de Salamanca', 35, 0, 0),
 (4, 'Czech Republic', 'Masarykova univerzita', 30, 0, 0),
-(5, 'Switzerland', 'Universitat Basel', 3, 3, 0),
-(6, 'Germany', 'Universitat Stuttgart', 30, 1, 1),
-(7, 'Russia', 'Kazan Federal University', 30, 0, 1),
-(8, 'Italy', 'Universita degli Studi di Genova', 40, 1, 1),
-(9, 'France', 'Universite Paris-Saclay', 40, 0, 1),
+(5, 'Switzerland', 'Universitat Basel', 3, 0, 0),
+(6, 'Germany', 'Universitat Stuttgart', 30, 0, 0),
+(7, 'Russia', 'Kazan Federal University', 30, 0, 0),
+(8, 'Italy', 'Universita degli Studi di Genova', 40, 0, 0),
+(9, 'France', 'Universite Paris-Saclay', 40, 0, 0),
 (10, 'Italy', 'Universita degli Studi di Pisa', 30, 0, 0);
 
 

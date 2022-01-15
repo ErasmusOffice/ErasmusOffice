@@ -80,20 +80,22 @@ BEGIN
             RAISE EXCEPTION 'Bosta akademisyen bulunmamaktadir';
         END IF;
     ELSE
-        UPDATE universities SET fall_applicant_count = fall_applicant_count - 1 WHERE old
-            .target_uni_id = universities.uni_id and old.term = 'fall';
-        UPDATE universities SET spring_applicant_count = spring_applicant_count - 1 WHERE old
-            .target_uni_id = universities.uni_id and old.term = 'spring';
-        UPDATE universities SET fall_applicant_count = fall_applicant_count - 1,
-                                spring_applicant_count = spring_applicant_count - 1 WHERE old
-            .target_uni_id = universities.uni_id and old.term = 'full_year';
-        UPDATE universities SET fall_applicant_count = fall_applicant_count + 1 WHERE new
-            .target_uni_id = universities.uni_id and new.term = 'fall';
-        UPDATE universities SET spring_applicant_count = spring_applicant_count + 1 WHERE new
-            .target_uni_id = universities.uni_id and new.term = 'spring';
-        UPDATE universities SET fall_applicant_count = fall_applicant_count + 1,
-                                spring_applicant_count = spring_applicant_count + 1 WHERE new
-            .target_uni_id = universities.uni_id and new.term = 'full_year';
+        IF old.result = true THEN
+            UPDATE universities SET fall_applicant_count = fall_applicant_count - 1 WHERE old
+                .target_uni_id = universities.uni_id and old.term = 'fall';
+            UPDATE universities SET spring_applicant_count = spring_applicant_count - 1 WHERE old
+                .target_uni_id = universities.uni_id and old.term = 'spring';
+            UPDATE universities SET fall_applicant_count = fall_applicant_count - 1,
+                                    spring_applicant_count = spring_applicant_count - 1 WHERE old
+                .target_uni_id = universities.uni_id and old.term = 'full_year';
+            UPDATE universities SET fall_applicant_count = fall_applicant_count + 1 WHERE new
+                .target_uni_id = universities.uni_id and new.term = 'fall';
+            UPDATE universities SET spring_applicant_count = spring_applicant_count + 1 WHERE new
+                .target_uni_id = universities.uni_id and new.term = 'spring';
+            UPDATE universities SET fall_applicant_count = fall_applicant_count + 1,
+                                    spring_applicant_count = spring_applicant_count + 1 WHERE new
+                .target_uni_id = universities.uni_id and new.term = 'full_year';
+        END IF;
     END IF;
     RETURN NEW;
 END;
