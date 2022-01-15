@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,11 +19,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1074.0" stylesheets="@../../Style/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erasmusoffice.StudentPageController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1074.0" stylesheets="@../../Style/ModernStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erasmusoffice.StudentPageController">
    <children>
-      <Pane layoutX="1.0" layoutY="1.0" onMouseDragged="#panedraged" onMousePressed="#panepressed" prefHeight="166.0" prefWidth="1072.0" styleClass="top-pane-image">
+      <Pane onMouseDragged="#panedraged" onMousePressed="#panepressed" prefHeight="92.0" prefWidth="1074.0" styleClass="background">
          <children>
-            <Label layoutX="64.0" layoutY="33.0" prefHeight="66.0" prefWidth="556.0" styleClass="top-label" text="Yildiz Technical University">
+            <Label layoutX="80.0" layoutY="14.0" prefHeight="66.0" prefWidth="556.0" styleClass="top-label" text="Yildiz Technical University">
                <font>
                   <Font size="45.0" />
                </font>
@@ -35,24 +36,27 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="624.0" layoutY="32.0" styleClass="top-label" text="-">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/logo.png" />
+               </image></ImageView>
+            <Label layoutX="597.0" layoutY="13.0" styleClass="top-label" text="-">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
             </Label>
-            <Label fx:id="studentNameLabel" layoutX="660.0" layoutY="31.0" prefHeight="66.0" prefWidth="318.0" styleClass="top-label" text="Student Name">
+            <Label fx:id="studentNameLabel" layoutX="628.0" layoutY="14.0" prefHeight="66.0" prefWidth="318.0" styleClass="top-name" text="Student Name">
                <font>
                   <Font size="45.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TabPane layoutX="1.0" layoutY="120.0" prefHeight="639.0" prefWidth="1072.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" AnchorPane.topAnchor="119.0">
+      <TabPane layoutY="93.0" prefHeight="664.0" prefWidth="1074.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" AnchorPane.topAnchor="94.0">
         <tabs>
           <Tab text="Make an Application">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-panel">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background">
                      <children>
                         <Pane layoutX="236.0" layoutY="61.0" prefHeight="472.0" prefWidth="600.0" styleClass="front-pane">
                            <children>
@@ -106,9 +110,9 @@
           </Tab>
           <Tab fx:id="applicationsTab" onSelectionChanged="#applicationsTabPressed" text="View Applications">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-panel">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background">
                      <children>
-                        <TableView fx:id="applicationTable" layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1044.0">
+                        <TableView fx:id="applicationTable" layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1013.0">
                           <columns>
                             <TableColumn fx:id="appId" prefWidth="151.0" text="App. ID" />
                             <TableColumn fx:id="studentID" prefWidth="193.0" text="Student ID" />
@@ -120,7 +124,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Pane layoutX="918.0" layoutY="476.0">
+                        <Pane layoutX="887.0" layoutY="475.0">
                            <children>
                               <Button layoutX="7.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="133.0" styleClass="stylized-button-frame" />
                               <Button fx:id="deleteButton" layoutY="7.0" mnemonicParsing="false" onMousePressed="#deleteApplication" prefHeight="31.0" prefWidth="131.0" styleClass="stylized-button" text="Delete" />
@@ -132,9 +136,9 @@
           </Tab>
             <Tab fx:id="universitiesTab" onSelectionChanged="#universityTabPressed" text="Universities">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab-panel">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background">
                      <children>
-                        <TableView fx:id="universitiesTable" layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1044.0">
+                        <TableView fx:id="universitiesTable" layoutX="14.0" layoutY="17.0" prefHeight="438.0" prefWidth="1013.0">
                            <columns>
                               <TableColumn fx:id="country" prefWidth="151.0" text="Country" />
                               <TableColumn fx:id="uniName" prefWidth="193.0" text="University Name" />
